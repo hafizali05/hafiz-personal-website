@@ -1,0 +1,636 @@
+/*==========================================================================
+   FONTS
+ ========================================================================== */
+/*==========================================================================
+   MEDIA QUERY SIZES
+ ========================================================================== */
+/* 320px */
+/* 576px */
+/* 768px */
+/* 1024px */
+/* 1200px */
+/* 1500px */
+/*==========================================================================
+   COLORS
+ ========================================================================== */
+/* Main bckground color of tiles */
+/*==========================================================================
+   CORNER SIZE
+ ========================================================================== */
+/* Rounded Corner */
+/*==========================================================================
+   MEDIA QUERIES // example @include respond-to(mobile) { }
+ ========================================================================== */
+/*
+  @include respond-to(mobile) {}
+  @include respond-to(tablet) {}
+  @include respond-to(desktopSm) {}
+  @include respond-to(desktopLg) {}
+*/
+/*==========================================================================
+   FUNCTIONS
+ ========================================================================== */
+/*==========================================================================
+   MIXINS
+ ========================================================================== */
+/*==========================================================================
+   SPRITES
+ ========================================================================== */
+/* reset
+----------------------------------------------*/
+/* line 3, ../scss/base/_reset.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+/* line 22, ../scss/base/_reset.scss */
+html {
+  line-height: 1;
+  height: 100%;
+}
+
+/* line 27, ../scss/base/_reset.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 31, ../scss/base/_reset.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 36, ../scss/base/_reset.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 42, ../scss/base/_reset.scss */
+q, blockquote {
+  quotes: none;
+}
+
+/* line 46, ../scss/base/_reset.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 51, ../scss/base/_reset.scss */
+a img {
+  border: none;
+}
+
+/* line 55, ../scss/base/_reset.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* Fonts
+----------------------------------------------*/
+/* LATO */
+@font-face {
+  font-family: 'LatoLight';
+  src: url("../fonts/Lato/Lato-Lig-webfont.eot");
+  src: url("../fonts/Lato/Lato-Lig-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Lato/Lato-Lig-webfont.woff") format("woff"), url("../fonts/Lato/Lato-Lig-webfont.ttf") format("truetype"), url("../fonts/Lato/Lato-Lig-webfont.svg#LatoLight") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoLightItalic';
+  src: url("../fonts/Lato/Lato-LigIta-webfont.eot");
+  src: url("../fonts/Lato/Lato-LigIta-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Lato/Lato-LigIta-webfont.woff") format("woff"), url("../fonts/Lato/Lato-LigIta-webfont.ttf") format("truetype"), url("../fonts/Lato/Lato-LigIta-webfont.svg#LatoLightItalic") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoRegular';
+  src: url("../fonts/Lato/Lato-Reg-webfont.eot");
+  src: url("../fonts/Lato/Lato-Reg-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Lato/Lato-Reg-webfont.woff") format("woff"), url("../fonts/Lato/Lato-Reg-webfont.ttf") format("truetype"), url("../fonts/Lato/Lato-Reg-webfont.svg#LatoRegular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoItalic';
+  src: url("../fonts/Lato/Lato-RegIta-webfont.eot");
+  src: url("../fonts/Lato/Lato-RegIta-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Lato/Lato-RegIta-webfont.woff") format("woff"), url("../fonts/Lato/Lato-RegIta-webfont.ttf") format("truetype"), url("../fonts/Lato/Lato-RegIta-webfont.svg#LatoItalic") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoBold';
+  src: url("../fonts/Lato/Lato-Bol-webfont.eot");
+  src: url("../fonts/Lato/Lato-Bol-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Lato/Lato-Bol-webfont.woff") format("woff"), url("../fonts/Lato/Lato-Bol-webfont.ttf") format("truetype"), url("../fonts/Lato/Lato-Bol-webfont.svg#LatoBold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoBoldItalic';
+  src: url("../fonts/Lato/Lato-BolIta-webfont.eot");
+  src: url("../fonts/Lato/Lato-BolIta-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Lato/Lato-BolIta-webfont.woff") format("woff"), url("../fonts/Lato/Lato-BolIta-webfont.ttf") format("truetype"), url("../fonts/Lato/Lato-BolIta-webfont.svg#LatoBoldItalic") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoBlack';
+  src: url("../fonts/Lato/Lato-Bla-webfont.eot");
+  src: url("../fonts/Lato/Lato-Bla-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Lato/Lato-Bla-webfont.woff") format("woff"), url("../fonts/Lato/Lato-Bla-webfont.ttf") format("truetype"), url("../fonts/Lato/Lato-Bla-webfont.svg#LatoBlack") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LatoBlackItalic';
+  src: url("../fonts/Lato/Lato-BlaIta-webfont.eot");
+  src: url("../fonts/Lato/Lato-BlaIta-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Lato/Lato-BlaIta-webfont.woff") format("woff"), url("../fonts/Lato/Lato-BlaIta-webfont.ttf") format("truetype"), url("../fonts/Lato/Lato-BlaIta-webfont.svg#LatoBlackItalic") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* Gotham */
+@font-face {
+  font-family: 'GothamRndBook';
+  src: url("../fonts/GothamRounded/GothamRnd-Book.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'GothamRndMed';
+  src: url("../fonts/GothamRounded/GothamRnd-Medium.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'GothamRndBold';
+  src: url("../fonts/GothamRounded/GothamRnd-Bold.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+/* Varela */
+@font-face {
+  font-family: 'VarelaRound';
+  src: url("../fonts/VarelaRound/VarelaRound-Regular-webfont.eot");
+  src: url("../fonts/VarelaRound/VarelaRound-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/VarelaRound/VarelaRound-Regular-webfont.woff") format("woff"), url("../fonts/VarelaRound/VarelaRound-Regular-webfont.ttf") format("truetype"), url("../fonts/VarelaRound/VarelaRound-Regular-webfont.svg#VarelaRoundRegular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* Bryant Pro */
+@font-face {
+  font-family: 'BryantMed';
+  src: url("../fonts/Bryant/bryant-medium-webfont.eot");
+  src: url("../fonts/Bryant/bryant-medium-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Bryant/bryant-medium-webfont.woff") format("woff"), url("../fonts/Bryant/bryant-medium-webfont.ttf") format("truetype"), url("../fonts/Bryant/bryant-medium-webfont.svg#bryantmedium") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BryantBold';
+  src: url("../fonts/Bryant/bryant-bold-webfont.eot");
+  src: url("../fonts/Bryant/bryant-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Bryant/bryant-bold-webfont.woff") format("woff"), url("../fonts/Bryant/bryant-bold-webfont.ttf") format("truetype"), url("../fonts/Bryant/bryant-bold-webfont.svg#bryantbold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BryantReg';
+  src: url("../fonts/Bryant/bryant-regular-webfont.eot");
+  src: url("../fonts/Bryant/bryant-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Bryant/bryant-regular-webfont.woff") format("woff"), url("../fonts/Bryant/bryant-regular-webfont.ttf") format("truetype"), url("../fonts/Bryant/bryant-regular-webfont.svg#bryant_regularregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* Bariol */
+@font-face {
+  font-family: 'BariolBold';
+  src: url("../fonts/Bariol/bariol_bold-webfont.eot");
+  src: url("../fonts/Bariol/bariol_bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Bariol/bariol_bold-webfont.woff") format("woff"), url("../fonts/Bariol/bariol_bold-webfont.ttf") format("truetype"), url("../fonts/Bariol/bariol_bold-webfont.svg#bariol_boldbold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'bariol_lightlight';
+  src: url("../fonts/Bariol/bariol_light-webfont.eot");
+  src: url("../fonts/Bariol/bariol_light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Bariol/bariol_light-webfont.woff") format("woff"), url("../fonts/Bariol/bariol_light-webfont.ttf") format("truetype"), url("../fonts/Bariol/bariol_light-webfont.svg#bariol_lightlight") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BariolRegular';
+  src: url("../fonts/Bariol/bariol_regular-webfont.eot");
+  src: url("../fonts/Bariol/bariol_regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Bariol/bariol_regular-webfont.woff") format("woff"), url("../fonts/Bariol/bariol_regular-webfont.ttf") format("truetype"), url("../fonts/Bariol/bariol_regular-webfont.svg#bariol_regularregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 1, ../scss/base/_base.scss */
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+
+/* line 2, ../scss/base/_base.scss */
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 3, ../scss/base/_base.scss */
+html {
+  background-color: #f3f4f4;
+}
+
+/* line 4, ../scss/base/_base.scss */
+body {
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+  font-size: 100%;
+}
+
+/* line 6, ../scss/base/_base.scss */
+::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+/* line 7, ../scss/base/_base.scss */
+:-moz-placeholder {
+  color: #ccc;
+}
+
+/* line 8, ../scss/base/_base.scss */
+::-moz-placeholder {
+  color: #ccc;
+}
+
+/* line 9, ../scss/base/_base.scss */
+:-ms-input-placeholder {
+  color: #ccc;
+}
+
+/* line 11, ../scss/base/_base.scss */
+a:link, a:visited {
+  text-decoration: none;
+}
+
+/* line 13, ../scss/base/_base.scss */
+p {
+  font-size: 0.9375em;
+  line-height: 20px;
+}
+/* line 14, ../scss/base/_base.scss */
+p:empty {
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 0 !important;
+  font-size: 0 !important;
+}
+
+/* line 16, ../scss/base/_base.scss */
+img {
+  display: block;
+}
+/* line 17, ../scss/base/_base.scss */
+img.fit_w {
+  width: 100%;
+  height: auto;
+}
+/* line 18, ../scss/base/_base.scss */
+img.fit_h {
+  width: auto;
+  height: 100%;
+}
+
+/* line 21, ../scss/base/_base.scss */
+h1 {
+  font-size: 5.3125em;
+  line-height: 95px;
+  color: #ccc;
+  font-family: 'LatoLight', Verdana, sans-serif;
+  font-weight: lighter;
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  /* line 21, ../scss/base/_base.scss */
+  h1 {
+    font-size: 3.125em;
+    line-height: 60px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  /* line 21, ../scss/base/_base.scss */
+  h1 {
+    font-size: 1.5625em;
+    line-height: 35px;
+  }
+}
+/* line 24, ../scss/base/_base.scss */
+h1 strong, h1 a:link, h1 a:visited {
+  font-family: 'LatoBold', Verdana, sans-serif;
+  color: #ccc;
+}
+/* line 25, ../scss/base/_base.scss */
+h1 a:hover {
+  color: #31bbac;
+}
+
+/* line 1, ../scss/layout/_layout.scss */
+header {
+  width: 100%;
+  padding: 40px 50px;
+}
+@media only screen and (max-width: 767px) {
+  /* line 1, ../scss/layout/_layout.scss */
+  header {
+    padding: 30px;
+  }
+}
+/* line 3, ../scss/layout/_layout.scss */
+header .logo {
+  background-image: url('../img/icons-s2af2e105ee.png');
+  background-position: 0 -75px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  height: 50px;
+  width: 250px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2), only screen and (min-resolution: 192 dpi) {
+  /* line 3, ../scss/layout/_layout.scss */
+  header .logo {
+    background-image: url('../img/icons2x-s2c05e5c959.png');
+    background-size: 250px 125px;
+    background-position: 0 -75px;
+  }
+}
+
+/* line 6, ../scss/layout/_layout.scss */
+.content {
+  width: 100%;
+  padding: 20px 80px 80px 110px;
+}
+@media only screen and (max-width: 767px) {
+  /* line 6, ../scss/layout/_layout.scss */
+  .content {
+    padding: 20px 30px 30px;
+  }
+}
+/* line 8, ../scss/layout/_layout.scss */
+.content .latest-work {
+  margin-top: 80px;
+}
+@media only screen and (max-width: 767px) {
+  /* line 8, ../scss/layout/_layout.scss */
+  .content .latest-work {
+    margin-top: 40px;
+    text-align: left;
+  }
+}
+/* line 10, ../scss/layout/_layout.scss */
+.content .latest-work .title {
+  font-family: 'LatoRegular', Verdana, sans-serif;
+  font-size: 1em;
+  line-height: 20px;
+  letter-spacing: 1px;
+  color: #e6e6e6;
+  text-transform: uppercase;
+  display: inline-block;
+  vertical-align: top;
+  border: solid 1px #e6e6e6;
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  margin-right: 40px;
+}
+@media only screen and (max-width: 767px) {
+  /* line 10, ../scss/layout/_layout.scss */
+  .content .latest-work .title {
+    margin-right: 0;
+  }
+}
+/* line 13, ../scss/layout/_layout.scss */
+.content .latest-work .projects {
+  display: inline-block;
+  vertical-align: top;
+}
+@media only screen and (max-width: 767px) {
+  /* line 13, ../scss/layout/_layout.scss */
+  .content .latest-work .projects {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+  }
+}
+/* line 16, ../scss/layout/_layout.scss */
+.content .latest-work .project {
+  font-family: 'LatoRegular', Verdana, sans-serif;
+  font-size: 1em;
+  line-height: 20px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 40px;
+}
+@media only screen and (max-width: 767px) {
+  /* line 16, ../scss/layout/_layout.scss */
+  .content .latest-work .project {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+/* line 18, ../scss/layout/_layout.scss */
+.content .latest-work .project .project-logo {
+  height: 40px;
+  margin-bottom: 8px;
+}
+@media only screen and (max-width: 767px) {
+  /* line 18, ../scss/layout/_layout.scss */
+  .content .latest-work .project .project-logo {
+    display: inline-block;
+  }
+}
+/* line 21, ../scss/layout/_layout.scss */
+.content .latest-work .project span {
+  display: block;
+}
+@media only screen and (max-width: 767px) {
+  /* line 21, ../scss/layout/_layout.scss */
+  .content .latest-work .project span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+/* line 23, ../scss/layout/_layout.scss */
+.content .latest-work .project span.role {
+  font-family: 'LatoRegular', Verdana, sans-serif;
+  font-size: 0.9375em;
+  line-height: 18px;
+  color: #e6e6e6;
+}
+@media only screen and (max-width: 767px) {
+  /* line 23, ../scss/layout/_layout.scss */
+  .content .latest-work .project span.role {
+    display: inline-block;
+    margin-left: 10px;
+  }
+}
+/* line 26, ../scss/layout/_layout.scss */
+.content .latest-work .project span.hshtags-logo {
+  background-image: url('../img/icons-s2af2e105ee.png');
+  background-position: 0 -45px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  height: 30px;
+  width: 113px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2), only screen and (min-resolution: 192 dpi) {
+  /* line 26, ../scss/layout/_layout.scss */
+  .content .latest-work .project span.hshtags-logo {
+    background-image: url('../img/icons2x-s2c05e5c959.png');
+    background-size: 250px 125px;
+    background-position: 0 -45px;
+  }
+}
+/* line 27, ../scss/layout/_layout.scss */
+.content .latest-work .project span.bluesmoke-logo {
+  background-image: url('../img/icons-s2af2e105ee.png');
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  height: 30px;
+  width: 137px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2), only screen and (min-resolution: 192 dpi) {
+  /* line 27, ../scss/layout/_layout.scss */
+  .content .latest-work .project span.bluesmoke-logo {
+    background-image: url('../img/icons2x-s2c05e5c959.png');
+    background-size: 250px 125px;
+    background-position: 0 0;
+  }
+}
+/* line 28, ../scss/layout/_layout.scss */
+.content .latest-work .project span.masterdynamic-logo {
+  background-image: url('../img/icons-s2af2e105ee.png');
+  background-position: -163px 0;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  height: 45px;
+  width: 39px;
+  margin-top: -5px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2), only screen and (min-resolution: 192 dpi) {
+  /* line 28, ../scss/layout/_layout.scss */
+  .content .latest-work .project span.masterdynamic-logo {
+    background-image: url('../img/icons2x-s2c05e5c959.png');
+    background-size: 250px 125px;
+    background-position: -164px 0;
+  }
+}
+
+/* line 34, ../scss/layout/_layout.scss */
+footer {
+  width: 100%;
+  padding: 40px 50px;
+  background-color: #31bbac;
+  color: #fff;
+  overflow: hidden;
+}
+@media only screen and (max-width: 767px) {
+  /* line 34, ../scss/layout/_layout.scss */
+  footer {
+    padding: 30px;
+  }
+}
+/* line 36, ../scss/layout/_layout.scss */
+footer span {
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 37, ../scss/layout/_layout.scss */
+footer a:link, footer a:visited {
+  color: #fff;
+  font-family: 'LatoBold', Verdana, sans-serif;
+  text-transform: uppercase;
+  font-family: 'LatoBold', Verdana, sans-serif;
+  letter-spacing: 1px;
+  font-size: 0.875em;
+  line-height: 18px;
+}
+/* line 38, ../scss/layout/_layout.scss */
+footer a:hover {
+  color: #e6e6e6;
+}
+/* line 39, ../scss/layout/_layout.scss */
+footer .left {
+  float: left;
+}
+@media only screen and (max-width: 767px) {
+  /* line 39, ../scss/layout/_layout.scss */
+  footer .left {
+    float: none;
+  }
+}
+/* line 42, ../scss/layout/_layout.scss */
+footer .right {
+  float: right;
+}
+@media only screen and (max-width: 767px) {
+  /* line 42, ../scss/layout/_layout.scss */
+  footer .right {
+    float: none;
+    margin-top: 15px;
+  }
+}
+/* line 45, ../scss/layout/_layout.scss */
+footer .twitter {
+  background-image: url('../img/icons-s2af2e105ee.png');
+  background-position: -129px -45px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  height: 15px;
+  width: 18px;
+  margin-right: 10px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2), only screen and (min-resolution: 192 dpi) {
+  /* line 45, ../scss/layout/_layout.scss */
+  footer .twitter {
+    background-image: url('../img/icons2x-s2c05e5c959.png');
+    background-size: 250px 125px;
+    background-position: -131px -45px;
+  }
+}
+/* line 46, ../scss/layout/_layout.scss */
+footer .linkedin {
+  background-image: url('../img/icons-s2af2e105ee.png');
+  background-position: -147px -45px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  height: 18px;
+  width: 17px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2), only screen and (min-resolution: 192 dpi) {
+  /* line 46, ../scss/layout/_layout.scss */
+  footer .linkedin {
+    background-image: url('../img/icons2x-s2c05e5c959.png');
+    background-size: 250px 125px;
+    background-position: -149px -45px;
+  }
+}

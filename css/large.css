@@ -1,0 +1,23 @@
+header {width: 490px;}
+
+/*.line {left:296px;}
+.line_nav {left: 170px;}*/
+.line {display: none;}
+.line_nav {display: none;}
+
+h1.big {font-size: 3em; }
+.project {height:500px;padding-bottom:60px;border-bottom: solid 1px #33BCAD;}
+.proj_info {height:500px;}
+.title {padding-left: 328px;}
+.description {width: 210px;padding: 0 38px 0 50px;}
+.gallery {height:425px;padding-left: 30px;border-left: solid 2px #ccc;}
+
+#WhoIsKim .proj_info {width:910px;padding: 50px 0px;height:460px;}
+#WhoIsKim .about_me {width:550px;padding-left: 50px;border-left: solid 2px #ccc;}
+
+#WhoIsKim .skills div.icon {width: auto; height: 27px; padding: 12px 55px 12px 0;margin-right: 5px; background: url(../images/services_sprite.png) no-repeat right 0;}
+#WhoIsKim .skills div.design{background-position: right 0;}
+#WhoIsKim .skills div.develop {background-position: right -55px;}
+#WhoIsKim .skills div.desktop {background-position: right -110px;}
+#WhoIsKim .skills div.tablet {background-position: right -165px;}
+#WhoIsKim .skills div.phone {background-position: right -220px;}

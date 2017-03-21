@@ -1,0 +1,15 @@
+h1.big {font-size: 3.5em; }
+
+.project {height:575px;}
+.proj_info {height:575px;}
+.gallery {height:500px;}
+
+#WhoIsKim .proj_info {width: 1200px;padding: 25px 0px;height:auto;}
+#WhoIsKim .about_me {width:730px;}
+
+#WhoIsKim .skills div.icon {width: auto; height: 20px; padding: 7px 40px 7px 0;margin-right: 5px; background: url(../images/services_sprite_small.png) no-repeat right 0;}
+#WhoIsKim .skills div.design{background-position: right 0;}
+#WhoIsKim .skills div.develop {background-position: right -40px;}
+#WhoIsKim .skills div.desktop {background-position: right -80px;}
+#WhoIsKim .skills div.tablet {background-position: right -120px;}
+#WhoIsKim .skills div.phone {background-position: right -160px;}

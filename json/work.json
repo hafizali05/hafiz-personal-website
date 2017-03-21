@@ -1,0 +1,148 @@
+{
+  "work": [
+    {
+      "title":"Hashtags Unplugged",
+      "slug":"hashtags-unplugged",
+      "description":"",
+      "link":"http://hashtagsunplugged.com",
+      "images":[],
+      "for":"Bourn",
+      "role":"Exhibition Creator & Producer, Site Design & Dev"
+    },
+    {
+      "title":"Sam Reich",
+      "slug":"sam-reich",
+      "description":"",
+      "link":"http://samreich.com",
+      "images":[],
+      "for":"Freelance",
+      "role":"UX/UI Design, Front-End & Back-End Development (PHP), CMS (Craft)"
+    },
+    {
+      "title":"Founder Mantras",
+      "slug":"founder-mantras",
+      "description":"",
+      "link":"http://foundermantras.com",
+      "images":[],
+      "for":"Bourn",
+      "role":"UX/UI Design, Front-End & Back-End Development (PHP)"
+    },
+    {
+      "title":"Send Thanks",
+      "slug":"send-thanks",
+      "description":"Send Thanks is a tool to craft the perfect thank you. Originally made for Thanksgiving 2015.",
+      "link":"http://sendthanks.to",
+      "images":[],
+      "for":"Bourn",
+      "role":"UX/UI Design, Front-End Development"
+    },
+    {
+      "title":"Seven Rooms",
+      "slug":"seven-rooms",
+      "description":"Seven Rooms is an operator-first hospitality solution. A third party agency designed their main website while I handled the front-end development of most the site.",
+      "link":"http://sevenrooms.com",
+      "images":[],
+      "for":"Freelance",
+      "role":"Front-End Development"
+    },
+    {
+      "title":"Hshtags",
+      "slug":"hshtags",
+      "description":"Hshtags is a social media search engine powered by hashtags. I wanted to create a simple and inutitive experience for searching across social media.",
+      "link":"https://hshtags.com",
+      "images":[],
+      "for":"Bourn",
+      "role":"UX/UI Design, Front-End & Back-End Development (PHP)"
+    },
+    {
+      "title":"OutSmartBK",
+      "slug":"outsmartbk",
+      "description":"OutSmartBK needed a website to support their month long campaign promoting safety and awareness in North Brooklyn, NY.",
+      "link":"http://outsmartbk.com",
+      "images":[],
+      "for":"Freelance",
+      "role":"UX/UI Design, Front-End Development"
+    },
+    {
+      "title":"The Eighth House",
+      "slug":"the-eighth-house",
+      "description":"The Eighth House is a visual studio built on the foundation of conceptual design. In preparation for the launch of their new studio, The Eighth House wanted to create an intro page for propective clients and partners until they were ready to build the full experience.",
+      "link":"http://theeighthhouse.com",
+      "images":[],
+      "for":"Freelance",
+      "role":"UX/UI Design, Front-End Development"
+    },
+    {
+      "title":"100 Happy Days",
+      "slug":"100-happy-days",
+      "description":"An introspective look at my Instagram challenge. After doing the #100HappyDays challenge, I decided to create a mini website to explore how I spent those 100 days.",
+      "link":"http://myhappychallenge.com",
+      "images":[],
+      "for":"Personal",
+      "role":"UX/UI Design, Front-End Development"
+    },
+    {
+      "title":"TaskMaster",
+      "slug":"taskmaster",
+      "description":"TaskMaster is a service for outsourcing household tasks online and hassle free. During the beta phase, TaskMaster wanted to improve the experience of the home page and booking flow.",
+      "link":"http://taskmaster.ae",
+      "images":[],
+      "for":"Freelance",
+      "role":"UX/UI Design, Front-End Development"
+    },
+    {
+      "title":"trèStiQue",
+      "slug":"trestique",
+      "description":"trèStiQue is a makeup brand where all the products are packaged in the form of sticks, which makes it more portable and easier to apply. I was the lead developer on the project collaborating with another front-end dev. The back-end was built on Spree, a rails ecommerce platform.",
+      "link":"http://trestique.com",
+      "images":[],
+      "for":"Wondersauce",
+      "role":"Front-End & Back-End Development (Rails), Ecommerce (Spree)"
+    },
+    {
+      "title":"Humble",
+      "slug":"humble",
+      "description":"Humble is a bicoastal integrated content studio. Ideation, production, and post production - all under one roof. I led the UX and design approach and collaborated with the creative directors of the company to rebrand their web presence. The main strategy for the redesign was to share both their playful and serious side.",
+      "link":"http://humble.tv",
+      "images":[],
+      "for":"Freelance",
+      "role":"UX/UI Design"
+    },
+    {
+      "title":"Foursquare for Business",
+      "slug":"foursquare-for-business",
+      "description":"Foursquare came to Wondersauce to rebrand their business website. I led the development for the entire experience which was built on Squarespace.",
+      "link":"http://business.foursquare.com",
+      "images":[],
+      "for":"Wondersauce",
+      "role":"Front-End & Back-End Development (PHP), CMS (Craft)"
+    },
+    {
+      "title":"Master & Dynamic",
+      "slug":"master-dynamic",
+      "description":"Master & Dynamic builds beautifully designed, technically sophisticated premium audio tools for creative minds. I collaborated with another front-end developer to quickly build out their ecommerce experience which was built on Shopify.",
+      "link":"http://masterdynamic.com",
+      "images":[],
+      "for":"Wondersauce",
+      "role":"Front-End & Back-End Development, Ecommerce (Shopify)"
+    },
+    {
+      "title":"The Fader",
+      "slug":"the-fader",
+      "description":"The FADER is the definitive voice of music and the lifestyle that surrounds it. I was one of three developers working to build out the new front-end experience. We worked with their back-end developer to seamlessly integrate with their custom cms.",
+      "link":"http://thefader.com",
+      "images":[],
+      "for":"Wondersauce",
+      "role":"Front-End & Back-End Development (Rails)"
+    },
+    {
+      "title":"Blue Smoke",
+      "slug":"bluesmoke",
+      "description":"Blue Smoke is a restaturant that celebrates the evolving American South and honors its culinary traditions. I led the full development of their new site which was built on Squarespace.",
+      "link":"http://bluesmoke.com",
+      "images":[],
+      "for":"Wondersauce",
+      "role":"Front-End & Back-End Development (Squarespace)"
+    }
+  ]
+}

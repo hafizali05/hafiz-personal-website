@@ -1,0 +1,28 @@
+{
+  "deck":[
+    {
+      "icon":"spotify",
+      "title":"On Spotify",
+      "description":"Best Day Ever by Mac Miller",
+      "link":"https://open.spotify.com/track/2jeWxoYEARpy0lGGahsKd5"
+    },
+    {
+      "icon":"podcast",
+      "title":"Recent Podcast",
+      "description":"Ted Radio Hour from NPR",
+      "link":"http://www.npr.org/rss/podcast.php?id=510298"
+    },
+    {
+      "icon":"book",
+      "title":"On Kindle",
+      "description":"#Girlboss by Sophia Amoruso",
+      "link":"http://www.amazon.com/GIRLBOSS-Sophia-Amoruso/dp/039916927X"
+    },
+    {
+      "icon":"find",
+      "title":"Latest Project",
+      "description":"Hashtag Story Series",
+      "link":"http://series.hashtagsunplugged.com"
+    }
+  ]
+}
