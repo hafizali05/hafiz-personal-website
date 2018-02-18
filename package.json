@@ -1,0 +1,28 @@
+{
+  "name": "hafiz-personal-website",
+  "version": "1.0.0",
+  "description": "personal basic website",
+  "main": "/js/main.js",
+  "scripts": {
+    "start": "http-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hafizali05/hafiz-personal-website.git"
+  },
+  "keywords": [
+    "hafiz",
+    "personal",
+    "website"
+  ],
+  "author": "hafiz didarali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hafizali05/hafiz-personal-website/issues"
+  },
+  "homepage": "https://github.com/hafizali05/hafiz-personal-website#readme",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}
