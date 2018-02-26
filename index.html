@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        
+        ga('create', 'a', 'auto');
+        ga('send', 'pageview');
+        </script>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -31,6 +40,18 @@ margin-top: 50px;
 .align_right li {
 padding: 2px 7px;
 font-size: 21px;
+}
+@media only screen and (max-width: 767px) {
+
+  .align_right {
+   
+    margin-top: 13px;
+    margin: 20px;
+  }
+  .align_right li {
+    padding: 4px;
+    font-size: 15px;
+  }
 }
   </style>
   <link rel="icon" href="/favicon.ico" type="image/ico">
@@ -123,11 +144,7 @@ font-size: 21px;
         <li>
           <h3>
             <span class="lbldup">Get In Touch</span> <span class="txt"><a href="mailto:hafizdidarali@gmail.com" onclick="ga('send', 'event', 'Contact', 'click', 'Email');">hafizdidarali@gmail.com</a></span>
-            <span class="social-mobile">
-              <a href="https://twitter.com/hafizdidarali" class="social" target="_blank" onclick="ga('send', 'event', 'Contact', 'click', 'Twitter');"><span class="twitter-icon"></span></a>
-              <a href="https://instagram.com/hafizallylalani" class="social" target="_blank" onclick="ga('send', 'event', 'Contact', 'click', 'Instagram');"><span class="instagram-icon"></span></a>
-              <a href="https://linkedin.com/in/hafizali05" class="social" target="_blank" onclick="ga('send', 'event', 'Contact', 'click', 'LinkedIn');"><span class="linkedin-icon"></span></a>
-            </span>
+            
           </h3>
         </li>
       </ul>
