@@ -55,6 +55,8 @@ font-size: 21px;
 }
   </style>
   <link rel="icon" href="/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="./css/modal.css">
+  <link rel="stylesheet" href="./css/slider.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script type="text/javascript" src="/js/vendor/jquery-1.11.3.min.js" ><\/script>')</script>
@@ -118,10 +120,70 @@ font-size: 21px;
       <p> UI Developer at <a href="http://www.keytree.co.uk" target="_blank">Keytree LTD</a>. Recently released <a href="http://www.blonk.co" target="_blank" onclick="ga('send', 'event', 'Intro', 'click', 'Bitter Renter');">Blonk</a>.</p>
       <!-- <p>Maker at <a href="http://bybourn.com" target="_blank" onclick="ga('send', 'event', 'Intro', 'click', 'Bourn');">Bourn</a>. Building at <a href="http://www.ogilvy.com" target="_blank">Ogilvy</a>. Previously at <a href="http://wondersauce.com" target="_blank">Wondersauce</a> &amp; <a href="http://www.rga.com" target="_blank">R/GA</a>.</p> -->
       <div class="nav-link" data-link="work" data-previous="about">
-        <div class="link-wrapper"><span class="txt lbldup">Work</span> <span class="arrow-down-sm"></span></div>
+        <div class="link-wrapper modal-toggle"><span class="txt lbldup">Work</span> <span class="arrow-down-sm"></span></div>
       </div>
     </div>
   </section>
+  <div class="modal">
+    <div class="modal-overlay modal-toggle"></div>
+    <div class="modal-wrapper modal-transition">
+      <div class="modal-header">
+        <button class="modal-close modal-toggle"><svg class="icon-close icon" viewBox="0 0 32 32"><use xlink:href="#icon-close"></use></svg></button>
+        <h1 class="modal-heading">Our Latest Work</h1>
+      </div>
+      
+      <div class="modal-body">
+        <div class="modal-content">
+            <div class="container">
+                <div id="mixedSlider">
+                                    <div class="MS-content">
+                                        <div class="item">
+                                            <div class="imgTitle">
+                                                <h2 class="blogTitle">Animals</h2>
+                                                <img src="https://placeimg.com/500/300/animals" alt="" />
+                                            </div>
+                                            <a href="#">Open Website</a>
+                                        </div>
+                                        <div class="item">
+                                            <div class="imgTitle">
+                                                <h2 class="blogTitle">Arch</h2>
+                                                <img src="https://placeimg.com/500/300/arch" alt="" />
+                                            </div>
+                                            <a href="#">Open Website</a>
+                                        </div>
+                                        <div class="item">
+                                            <div class="imgTitle">
+                                                <h2 class="blogTitle">Nature</h2>
+                                                <img src="https://placeimg.com/500/300/nature" alt="" />
+                                            </div>
+                                            <a href="#">Open Website</a>
+                                        </div>
+                                        <div class="item">
+                                            <div class="imgTitle">
+                                                <h2 class="blogTitle">People</h2>
+                                                <img src="https://placeimg.com/500/300/people" alt="" />
+                                            </div>
+                                            <a href="#">Open Website</a>
+                                        </div>
+                                        <div class="item">
+                                            <div class="imgTitle">
+                                                <h2 class="blogTitle">Tech</h2>
+                                                <img src="https://placeimg.com/500/300/tech" alt="" />
+                                            </div>
+                                            <a href="#">Open Website</a>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="MS-controls">
+                                        <button class="MS-left"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+                                        <button class="MS-right"><i class="fa fa-angle-right" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <section id="work" class="section work">
     <ul class="projects"></ul>
     <div class="nav-link" data-link="contact" data-previous="work">
@@ -151,7 +213,38 @@ font-size: 21px;
     </div>
   </section>
 </div>
-
+<script src="./js/multislider.js"></script>
+<script>
+    $('#basicSlider').multislider({
+          continuous: true,
+          duration: 2000
+        });
+        $('#mixedSlider').multislider({
+          duration: 750,
+          interval: 3000
+        });
+    </script>
+    </body>
+    <script type="text/javascript">
+    
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-36251023-1']);
+      _gaq.push(['_setDomainName', 'jqueryscript.net']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    
+    </script>
+<script>
+  $('.modal-toggle').on('click', function(e) {
+  e.preventDefault();
+  $('.modal').toggleClass('is-visible');
+});
+</script>
 <script src="./js/app.min.js"></script>
 </body>
 </html>
