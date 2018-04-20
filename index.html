@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        
+        ga('create', 'a', 'auto');
+        ga('send', 'pageview');
+        </script>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -19,12 +28,39 @@
   <meta name="twitter:site" content="@hafizdidarali">
   <meta name="twitter:domain" content="hafiz.com">
   <meta name="twitter:creator" content="@hafizdidarali">
-
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link type="text/css" rel="stylesheet" href="./css/app.min.css">
+  <style>
+    .align_right {
+
+display: inline-flex;
+float: right;
+margin-top: 50px;
+}
+.align_right li {
+padding: 2px 7px;
+font-size: 21px;
+}
+@media only screen and (max-width: 767px) {
+
+  .align_right {
+   
+    margin-top: 13px;
+    margin: 20px;
+  }
+  .align_right li {
+    padding: 4px;
+    font-size: 15px;
+  }
+}
+  </style>
   <link rel="icon" href="/favicon.ico" type="image/ico">
+  <link rel="stylesheet" href="./css/modal.css">
+  <link rel="stylesheet" href="./css/slider.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script type="text/javascript" src="/js/vendor/jquery-1.11.3.min.js" ><\/script>')</script>
+  <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script> -->
 
   <script src="./js/vendor.min.js"></script>
 
@@ -43,24 +79,32 @@
         <span class="lbldup">about</span> <span class="arrow-down-sm"></span>
       </div>
     </div>
-  </div>
+  </div>  
+ 
+  <ul class="align_right">
+    <li><a href="data.txt" class="lbldup" download="Resume" ><strong>Resume</strong></a></li>
+    <li><a href="https://github.com/hafizali05/hafiz-personal-website" target="_blank"><i class="fa fa-github"></i></a></li>
+    <li><a href="https://twitter.com/hafizdidarali" target="_blank"><i class="fa fa-twitter"></i></a></li>
+    <li><a href="https://www.instagram.com/hafizallylalani" target="_blank"><i class="fa fa-instagram"></i></a></li>
+    <li><a href="https://www.linkedin.com/in/hafizali05/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+  </ul>
   <div class="right social-nav">
-    <a href="deck" class="on-deck lbldup">Weekly Picks <span class="arrow-down-sm"></span></a>
-    <a href="https://twitter.com/hafizdidarali" class="social" target="_blank" onclick="ga('send', 'event', 'Header', 'click', 'Twitter');"><span class="twitter-icon"></span></a>
+
+      <!-- <a href="data.txt" class="lbldup" download="Resume" ><strong>Resume</strong></a>
+  
+  <a href="https://github.com/hafizali05/hafiz-personal-website">
+    <i class="fab fa-github"></i>
+  </a>
+
+     <a href="https://twitter.com/hafizdidarali" class="social" target="_blank" onclick="ga('send', 'event', 'Header', 'click', 'Twitter');"><span class="twitter-icon"></span></a>
+     <a href="https://www.instagram.com/hafizallylalani" class="social" target="_blank" onclick="ga('send', 'event', 'Header', 'click', 'Instagram');"><span class="github-icon"></span></a>
+    
     <a href="https://www.instagram.com/hafizallylalani" class="social" target="_blank" onclick="ga('send', 'event', 'Header', 'click', 'Instagram');"><span class="instagram-icon"></span></a>
-    <a href="https://www.linkedin.com/in/hafizali05/" class="social" target="_blank" onclick="ga('send', 'event', 'Header', 'click', 'LinkedIn');"><span class="linkedin-icon"></span></a>
+    <a href="https://www.linkedin.com/in/hafizali05/" class="social" target="_blank" onclick="ga('send', 'event', 'Header', 'click', 'LinkedIn');"><span class="linkedin-icon"></span></a> -->
   </div>
 </header>
 <div class="project-header">
   <h3 class="link"> <span class="txt"><span>Title</span></span> <span class="arrow"><span class="close-icon"></span></span> </h3>
-</div>
-
-<div class="deck">
-  <div class="deck-wrapper">
-    <div class="inner-wrapper">
-      <ul class="deck-links"></ul>
-    </div>
-  </div>
 </div>
 
 <div class="main">
@@ -76,10 +120,70 @@
       <p> UI Developer at <a href="http://www.keytree.co.uk" target="_blank">Keytree LTD</a>. Recently released <a href="http://www.blonk.co" target="_blank" onclick="ga('send', 'event', 'Intro', 'click', 'Bitter Renter');">Blonk</a>.</p>
       <!-- <p>Maker at <a href="http://bybourn.com" target="_blank" onclick="ga('send', 'event', 'Intro', 'click', 'Bourn');">Bourn</a>. Building at <a href="http://www.ogilvy.com" target="_blank">Ogilvy</a>. Previously at <a href="http://wondersauce.com" target="_blank">Wondersauce</a> &amp; <a href="http://www.rga.com" target="_blank">R/GA</a>.</p> -->
       <div class="nav-link" data-link="work" data-previous="about">
-        <div class="link-wrapper"><span class="txt lbldup">Work</span> <span class="arrow-down-sm"></span></div>
+        <div class="link-wrapper modal-toggle"><span class="txt lbldup">Work</span> <span class="arrow-down-sm"></span></div>
       </div>
     </div>
   </section>
+  <div class="modal">
+    <div class="modal-overlay modal-toggle"></div>
+    <div class="modal-wrapper modal-transition">
+      <div class="modal-header">
+        <button class="modal-close modal-toggle"><svg class="icon-close icon" viewBox="0 0 32 32"><use xlink:href="#icon-close"></use></svg></button>
+        <h1 class="modal-heading">Our Latest Work</h1>
+      </div>
+      
+      <div class="modal-body">
+        <div class="modal-content">
+            <div class="container">
+                <div id="mixedSlider">
+                                    <div class="MS-content">
+                                        <div class="item">
+                                            <div class="imgTitle">
+                                                <h2 class="blogTitle">Animals</h2>
+                                                <img src="https://placeimg.com/500/300/animals" alt="" />
+                                            </div>
+                                            <a href="#">Open Website</a>
+                                        </div>
+                                        <div class="item">
+                                            <div class="imgTitle">
+                                                <h2 class="blogTitle">Arch</h2>
+                                                <img src="https://placeimg.com/500/300/arch" alt="" />
+                                            </div>
+                                            <a href="#">Open Website</a>
+                                        </div>
+                                        <div class="item">
+                                            <div class="imgTitle">
+                                                <h2 class="blogTitle">Nature</h2>
+                                                <img src="https://placeimg.com/500/300/nature" alt="" />
+                                            </div>
+                                            <a href="#">Open Website</a>
+                                        </div>
+                                        <div class="item">
+                                            <div class="imgTitle">
+                                                <h2 class="blogTitle">People</h2>
+                                                <img src="https://placeimg.com/500/300/people" alt="" />
+                                            </div>
+                                            <a href="#">Open Website</a>
+                                        </div>
+                                        <div class="item">
+                                            <div class="imgTitle">
+                                                <h2 class="blogTitle">Tech</h2>
+                                                <img src="https://placeimg.com/500/300/tech" alt="" />
+                                            </div>
+                                            <a href="#">Open Website</a>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="MS-controls">
+                                        <button class="MS-left"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+                                        <button class="MS-right"><i class="fa fa-angle-right" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <section id="work" class="section work">
     <ul class="projects"></ul>
     <div class="nav-link" data-link="contact" data-previous="work">
@@ -102,18 +206,45 @@
         <li>
           <h3>
             <span class="lbldup">Get In Touch</span> <span class="txt"><a href="mailto:hafizdidarali@gmail.com" onclick="ga('send', 'event', 'Contact', 'click', 'Email');">hafizdidarali@gmail.com</a></span>
-            <span class="social-mobile">
-              <a href="https://twitter.com/hafizdidarali" class="social" target="_blank" onclick="ga('send', 'event', 'Contact', 'click', 'Twitter');"><span class="twitter-icon"></span></a>
-              <a href="https://instagram.com/hafizallylalani" class="social" target="_blank" onclick="ga('send', 'event', 'Contact', 'click', 'Instagram');"><span class="instagram-icon"></span></a>
-              <a href="https://linkedin.com/in/hafizali05" class="social" target="_blank" onclick="ga('send', 'event', 'Contact', 'click', 'LinkedIn');"><span class="linkedin-icon"></span></a>
-            </span>
+            
           </h3>
         </li>
       </ul>
     </div>
   </section>
 </div>
-
+<script src="./js/multislider.js"></script>
+<script>
+    $('#basicSlider').multislider({
+          continuous: true,
+          duration: 2000
+        });
+        $('#mixedSlider').multislider({
+          duration: 750,
+          interval: 3000
+        });
+    </script>
+    </body>
+    <script type="text/javascript">
+    
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-36251023-1']);
+      _gaq.push(['_setDomainName', 'jqueryscript.net']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    
+    </script>
+<script>
+  $('.modal-toggle').on('click', function(e) {
+  e.preventDefault();
+  $('.modal').toggleClass('is-visible');
+});
+</script>
 <script src="./js/app.min.js"></script>
 </body>
 </html>
