@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 
-const Work = () => {
+const Work:FunctionComponent = () => {
   return (
     <div>Work</div>
   )

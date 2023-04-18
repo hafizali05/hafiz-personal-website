@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import './header.css'
 
-const Header = () => {
+const Header:FunctionComponent = () => {
   return (
     <div className='header'>
     <ul>

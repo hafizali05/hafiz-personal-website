@@ -19,6 +19,7 @@
     padding: 2px 7px;
     font-size: 21px;
     font-family: 'Lato',sans-serif;
+    font-weight: bold;
 } 
 
 @media screen and (max-width: 750px) and (min-width: 250px) {
@@ -29,7 +30,6 @@
     .header ul li a{
       padding: 4px;
       font-size: 13.125px;
-      font-family: 'Lato',sans-serif;
     }
   }
   

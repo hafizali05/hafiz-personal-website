@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
+import SectionSeparator from '../sectionSeparator'
 
-const About = () => {
+import './about.css'
+
+const About:FunctionComponent = () => {
   return (
-    <div>About</div>
+    <section id="about" className='about'>
+      <div className="cdc-labels">
+        <label className="text-label">CREATE</label>
+        <label>+</label>
+        <label className="text-label">DESIGN</label>
+        <label>+</label>
+        <label className="text-label">CODE</label>
+      </div>
+    </section>
   )
 }
 

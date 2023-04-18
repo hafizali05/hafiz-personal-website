@@ -1,0 +1,15 @@
+@import url('/src/fonts.css');
+
+.about{
+    padding: 220px 50px 0 50px;
+}
+.cdc-labels{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.56rem;
+}
+.cdc-labels .text-label{
+    font-family: 'Lato',sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+}

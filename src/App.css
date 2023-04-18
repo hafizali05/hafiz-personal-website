@@ -5,3 +5,9 @@
 .text :hover{
     color: #31bbac ;
 }
+
+.main-section{
+    margin: 0 auto;
+    max-width: 890px;
+    width: 100%;
+}
