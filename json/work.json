@@ -1,31 +1,74 @@
 {
   "work": [
     {
-      "title":"Mobile developer @Blonk",
+      "title":"Senior Software Engineer @Bold Science",
+      "slug":"bold-science",
+      "description":"Owner of scientific communication application used by FDA. Leading team of 5, architecting solutions with React, TypeScript, Python, and AWS serverless infrastructure. Focused on performance optimization, testing strategy, and building engineering culture.",
+      "link":"https://www.boldsci.com/",
+      "images":[],
+      "for":"Bold Science",
+      "role":"Senior Software Engineer",
+      "period":"March 2023 - Present"
+    },
+    {
+      "title":"Lead Software Engineer @Glasswall",
+      "slug":"glasswall",
+      "description":"Led architecture and development of file-based protection solutions using React, Electron, TypeScript, and Java Spring Boot. Developed Glasswall Desktop for US government. Managed offshore team and established coding standards.",
+      "link":"http://www.glasswall.com",
+      "images":[],
+      "for":"Glasswall",
+      "role":"Lead Software Engineer",
+      "period":"Dec 2021 - Dec 2022"
+    },
+    {
+      "title":"Senior Software Engineer @Forest Rock Systems",
+      "slug":"forest-rock",
+      "description":"Developed N4EnergyManager for visualizing IoT device data and Alarm Manager handling 7M alarms/year for major retailers (Asda, M&S, John Lewis). Drove frontend architectural decisions and mentored team members.",
+      "link":"https://www.forestrocksystems.com",
+      "images":[],
+      "for":"Forest Rock Systems",
+      "role":"Senior Software Engineer",
+      "period":"Aug 2019 - Dec 2021"
+    },
+    {
+      "title":"Software Engineer @Deloitte (Keytree)",
+      "slug":"deloitte",
+      "description":"Developed CRM applications for Jaguar Land Rover using React, Redux, and Java Spring Boot. Built London City Airport website with React and NodeJS. Supported multiple clients including TfL, British Gas, and Freshfield.",
+      "link":"https://www2.deloitte.com",
+      "images":[],
+      "for":"Deloitte (Keytree)",
+      "role":"Software Engineer",
+      "period":"Mar 2017 - Aug 2019"
+    },
+    {
+      "title":"Full Stack Developer @Blonk SAAS",
       "slug":"blonk",
-      "description":"",
+      "description":"Built recruitment-focused web and React Native mobile app MVP that helped raise EUR 200k. Integrated Stripe payment gateway and created job dashboard for C-level executives.",
       "link":"http://blonk.co",
       "images":[],
-      "for":"Bourn",
-      "role":"Web and mobile developer"
+      "for":"Blonk",
+      "role":"Full Stack JavaScript Developer",
+      "period":"Aug 2016 - Mar 2017"
     },
     {
-      "title":"FullStack Developer @Superfastpixels",
-      "slug":"Superfastpixels",
-      "description":"",
-      "link":"http://Superfastpixels.io",
+      "title":"Full Stack Developer @SuperFastPixels",
+      "slug":"superfastpixels",
+      "description":"E2E development of web app for movie crew marketplace using React, Meteor, NodeJS, and MongoDB.",
+      "link":"http://superfastpixels.io",
       "images":[],
-      "for":"Bourn",
-      "role":"UX/UI Design, Front-End & Back-End Development (Node)"
+      "for":"SuperFastPixels",
+      "role":"Full Stack JavaScript Developer",
+      "period":"Feb 2016 - Aug 2016"
     },
     {
-      "title":"Javascript developer @Greenroom",
-      "slug":"greenroomnow",
-      "description":"",
+      "title":"Full Stack Developer @Greenroom",
+      "slug":"greenroom",
+      "description":"E2E development of web app for stage artists to find gigs using React, Meteor, NodeJS, and MongoDB.",
       "link":"http://greenroomnow.com",
       "images":[],
-      "for":"Bourn",
-      "role":"UX/UI Design, Front-End & Back-End Development (Node)"
+      "for":"Greenroom",
+      "role":"Full Stack JavaScript Developer",
+      "period":"Feb 2015 - Dec 2015"
     }
   ]
 }
