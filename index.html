@@ -22,6 +22,16 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link type="text/css" rel="stylesheet" href="./css/app.min.css">
   <style>
+    .version {
+      position: fixed;
+      top: 8px;
+      left: 12px;
+      font-size: 9px;
+      opacity: 0.35;
+      letter-spacing: 0.04em;
+      pointer-events: none;
+      z-index: 9999;
+    }
     .align_right {
 
 display: inline-flex;
@@ -61,6 +71,15 @@ font-size: 21px;
 </head>
 
 <body>
+<div class="version" id="version"></div>
+<script>
+  (function(){
+    var d = new Date();
+    var day = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d.getDay()];
+    var h = d.getHours();
+    document.getElementById('version').textContent = day + ' ' + (h < 10 ? '0' + h : h) + ':00';
+  })();
+</script>
 
 <header class="header">
   <div class="left">
