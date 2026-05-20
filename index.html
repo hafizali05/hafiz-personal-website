@@ -42,14 +42,50 @@ margin-top: 50px;
 padding: 2px 7px;
 font-size: 21px;
 }
-  .tools-btn {
-    color: #31bbac !important;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
+  .tools-fab {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9998;
   }
-  .tools-btn:hover { opacity: 0.75; }
+  .tools-fab a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #31bbac;
+    color: #fff;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: 0 2px 12px rgba(49,187,172,0.35);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .tools-fab a:hover {
+    background: #28a89a;
+    transform: scale(1.1);
+    box-shadow: 0 4px 18px rgba(49,187,172,0.45);
+  }
+  .tools-fab a .fab-tooltip {
+    position: absolute;
+    right: 54px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #333;
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 3px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .tools-fab a:hover .fab-tooltip { opacity: 1; }
 @media only screen and (max-width: 767px) {
 
   .align_right {
@@ -61,7 +97,12 @@ font-size: 21px;
     padding: 4px;
     font-size: 15px;
   }
-  .tools-label { display: none; }
+  .tools-fab {
+    top: auto;
+    bottom: 24px;
+    transform: none;
+    right: 16px;
+  }
 }
   </style>
   <link rel="icon" href="/favicon.ico" type="image/ico">
@@ -101,7 +142,6 @@ font-size: 21px;
   </div>  
  
   <ul class="align_right">
-    <li><a href="./tools/index.html" class="lbldup tools-btn" title="Tools"><i class="fa fa-wrench"></i> <span class="tools-label">Tools</span></a></li>
     <li><a href="https://docs.google.com/document/d/1qqLJoZNGcUpLM8-gDcDXZ-t3AetO8Y0I/edit?usp=sharing&ouid=110752567564949449732&rtpof=true&sd=true" target="_blank" class="lbldup"><strong>Resume</strong></a></li>
     <li><a href="https://github.com/hafizali05/hafiz-personal-website" target="_blank"><i class="fa fa-github"></i></a></li>
     <li><a href="https://twitter.com/hafizdidarali" target="_blank"><i class="fa fa-twitter"></i></a></li>
@@ -261,5 +301,12 @@ font-size: 21px;
 });
 </script>
 <script src="./js/app.min.js"></script>
+
+<div class="tools-fab">
+  <a href="./tools/index.html" title="Tools">
+    <i class="fa fa-wrench"></i>
+    <span class="fab-tooltip">Tools</span>
+  </a>
+</div>
 </body>
 </html>
