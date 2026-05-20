@@ -226,8 +226,8 @@ font-size: 21px;
     <div class="inner-wrapper">
       <p> Lead software engineer at <a href="https://www.burendo.com/" target="_blank">Burendo</a>.</p>
       <!-- <p>Maker at <a href="http://bybourn.com" target="_blank" onclick="ga('send', 'event', 'Intro', 'click', 'Bourn');">Bourn</a>. Building at <a href="http://www.ogilvy.com" target="_blank">Ogilvy</a>. Previously at <a href="http://wondersauce.com" target="_blank">Wondersauce</a> &amp; <a href="http://www.rga.com" target="_blank">R/GA</a>.</p> -->
-      <div class="nav-link" data-link="work" data-previous="about">
-        <div class="link-wrapper modal-toggle"><span class="txt lbldup">Work</span> <span class="arrow-down-sm"></span></div>
+      <div class="nav-link work-toggle" data-link="work" data-previous="about">
+        <div class="link-wrapper"><span class="txt lbldup">Work</span> <span class="arrow-down-sm work-arrow-icon"></span></div>
       </div>
     </div>
   </section>
@@ -348,6 +348,31 @@ font-size: 21px;
 });
 </script>
 <script src="./js/app.min.js"></script>
+
+<style>
+  .work-arrow-icon {
+    display: inline-block;
+    transition: transform 0.35s ease;
+  }
+  .work-toggle.is-open .work-arrow-icon {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+  $(document).ready(function () {
+    // Hide the work section initially
+    $('#work').hide();
+
+    // Intercept the Work nav-link click before app.min.js scroll handler fires
+    $('.work-toggle').on('click', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      $(this).toggleClass('is-open');
+      $('#work').slideToggle(400);
+    });
+  });
+</script>
 
 <script>
   if ('serviceWorker' in navigator) {
