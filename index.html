@@ -106,6 +106,13 @@ font-size: 21px;
 }
   </style>
   <link rel="icon" href="/favicon.ico" type="image/ico">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#31bbac">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="hafiz.in">
+  <link rel="apple-touch-icon" href="/img/icon-192.png">
   <link rel="stylesheet" href="./css/modal.css">
   <link rel="stylesheet" href="./css/slider.css">
 
@@ -301,6 +308,14 @@ font-size: 21px;
 });
 </script>
 <script src="./js/app.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js');
+    });
+  }
+</script>
 
 <div class="tools-fab">
   <a href="./tools/index.html" title="Tools">
