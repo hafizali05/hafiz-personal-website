@@ -154,6 +154,61 @@
       color: #31bbac;
     }
 
+    /* Time scrubber (touch-friendly, esp. mobile) */
+    .time-scrubber {
+      flex: 1 0 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .time-scrubber input[type=range] {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 5px;
+      border-radius: 3px;
+      background: #2a2a2a;
+      outline: none;
+      margin: 0;
+    }
+    .time-scrubber input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #31bbac;
+      cursor: pointer;
+      border: 4px solid #0e0e0e;
+      box-shadow: 0 0 0 1px #31bbac;
+    }
+    .time-scrubber input[type=range]::-moz-range-thumb {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #31bbac;
+      cursor: pointer;
+      border: 4px solid #0e0e0e;
+      box-shadow: 0 0 0 1px #31bbac;
+    }
+    .step-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      color: #31bbac;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 0.2s, background 0.2s;
+      touch-action: manipulation;
+    }
+    .step-btn:hover { border-color: #31bbac; }
+    .step-btn:active { background: #1a1a1a; }
+
     /* Clocks grid */
     .clocks-wrap {
       display: flex;
@@ -403,7 +458,7 @@
       <h1>Timezone <span>Clock</span></h1>
     </div>
     <div class="hint">
-      <span><i class="fa fa-mouse-pointer"></i> Scroll anywhere to shift time</span>
+      <span><i class="fa fa-arrows-h"></i> Drag the slider (or scroll) to shift time</span>
       <span><i class="fa fa-plus"></i> Add clocks to compare</span>
       <span><i class="fa fa-refresh"></i> Reset returns to live time</span>
     </div>
@@ -412,6 +467,11 @@
       <span class="offset-label">Offset</span>
       <span class="offset-value" id="offsetDisplay">live time</span>
       <button class="offset-reset" id="resetBtn">Reset to now</button>
+      <div class="time-scrubber">
+        <button class="step-btn" id="stepDown" aria-label="Back one minute">&minus;</button>
+        <input type="range" id="timeSlider" min="-1440" max="1440" step="1" value="0" aria-label="Shift time" />
+        <button class="step-btn" id="stepUp" aria-label="Forward one minute">+</button>
+      </div>
     </div>
 
     <div class="clocks-wrap" id="clocksWrap">
@@ -586,6 +646,7 @@ function renderClocks() {
   });
 
   offsetDisplay.textContent = formatOffset(offsetMs);
+  syncSlider();
 
   // Bind remove buttons
   clocksWrap.querySelectorAll('.clock-remove').forEach(btn => {
@@ -623,6 +684,31 @@ resetBtn.addEventListener('click', () => {
   offsetMs = 0;
   renderClocks();
 });
+
+// Time scrubber (slider + steppers) — primary control on touch devices
+const timeSlider = document.getElementById('timeSlider');
+const stepDown   = document.getElementById('stepDown');
+const stepUp     = document.getElementById('stepUp');
+const SLIDER_MAX = 1440; // minutes (±24h)
+let sliderActive = false;
+
+function syncSlider() {
+  if (sliderActive) return;
+  const mins = Math.round(offsetMs / 60000);
+  timeSlider.value = Math.max(-SLIDER_MAX, Math.min(SLIDER_MAX, mins));
+}
+
+timeSlider.addEventListener('input', () => {
+  sliderActive = true;
+  offsetMs = parseInt(timeSlider.value, 10) * 60000;
+  renderClocks();
+});
+['change', 'pointerup', 'touchend', 'mouseup', 'blur'].forEach(ev =>
+  timeSlider.addEventListener(ev, () => { sliderActive = false; })
+);
+
+stepDown.addEventListener('click', () => { offsetMs -= 60000; renderClocks(); });
+stepUp.addEventListener('click',   () => { offsetMs += 60000; renderClocks(); });
 
 // Modal
 function openModal() {
