@@ -570,7 +570,7 @@ window.addEventListener('wheel', (e) => {
   if (scrollThrottle) return;
   scrollThrottle = setTimeout(() => { scrollThrottle = null; }, 80);
 
-  const step = 15 * 60 * 1000; // 15 minutes per tick
+  const step = 60 * 1000; // 1 minute per tick
   if (e.deltaY > 0) {
     offsetMs -= step;
   } else {
@@ -640,11 +640,11 @@ function renderTzList(query) {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeModal();
   if (e.key === 'ArrowUp' && !modalOverlay.classList.contains('open')) {
-    offsetMs += 15 * 60 * 1000;
+    offsetMs += 60 * 1000;
     renderClocks();
   }
   if (e.key === 'ArrowDown' && !modalOverlay.classList.contains('open')) {
-    offsetMs -= 15 * 60 * 1000;
+    offsetMs -= 60 * 1000;
     renderClocks();
   }
 });
