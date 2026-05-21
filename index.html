@@ -357,14 +357,66 @@ font-size: 21px;
   .work-toggle.is-open .work-arrow-icon {
     transform: rotate(180deg);
   }
+
+  /* Inline work list with descriptions */
+  #work .projects {
+    padding: 0;
+    margin: 0;
+  }
+  #work .work-item {
+    padding: 22px 32px;
+    border-bottom: 1px solid #f4f4f4;
+    list-style: none;
+  }
+  #work .work-item:last-child { border-bottom: none; }
+  #work .work-item-title {
+    display: block;
+    font-size: 15px;
+    font-family: 'LatoBold', Verdana, sans-serif;
+    color: #31bbac;
+    text-decoration: none;
+    margin-bottom: 3px;
+    transition: opacity 0.2s;
+  }
+  #work .work-item-title:hover { opacity: 0.75; }
+  #work .work-item-meta {
+    display: block;
+    font-size: 11px;
+    color: #bbb;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  #work .work-item-desc {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.7;
+    margin: 0;
+  }
+  #work .nav-link {
+    padding: 20px 32px;
+  }
 </style>
 
 <script>
-  $(document).ready(function () {
-    // Hide the work section initially
-    $('#work').hide();
+  // Override work_module.getWork to render descriptions inline
+  work_module.getWork = function () {
+    $.getJSON('./json/work.json', function (data) {
+      var $list = $('.projects').empty();
+      $.each(data.work, function (i, job) {
+        $list.append(
+          '<li class="work-item">' +
+            '<a class="work-item-title" href="' + job.link + '" target="_blank" rel="noopener noreferrer">' + job.title + '</a>' +
+            '<span class="work-item-meta">' + job.role + ' &nbsp;&middot;&nbsp; ' + job.period + '</span>' +
+            '<p class="work-item-desc">' + job.description + '</p>' +
+          '</li>'
+        );
+      });
+    });
+  };
 
-    // Intercept the Work nav-link click before app.min.js scroll handler fires
+  $(document).ready(function () {
+    $('#work').hide();
     $('.work-toggle').on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
