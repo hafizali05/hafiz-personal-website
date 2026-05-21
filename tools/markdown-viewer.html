@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free online Markdown Viewer — write or paste Markdown and see a live rendered preview instantly in your browser." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.hafiz.in/tools/markdown-viewer.html" />
+  <title>Markdown Viewer — hafiz didarali</title>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <link rel="icon" href="/favicon.ico" type="image/ico">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #fff;
+      color: #555;
+      font-family: 'LatoRegular', Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---- header ---- */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      border-bottom: 1px solid #f0f0f0;
+      flex-shrink: 0;
+    }
+    .header-back {
+      text-decoration: none;
+      color: #ccc;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .header-back:hover { color: #31bbac; }
+    .header-title {
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: #bbb;
+      text-transform: uppercase;
+    }
+
+    /* ---- layout ---- */
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 32px 40px;
+      gap: 20px;
+      min-height: 0;
+    }
+
+    .hero { flex-shrink: 0; }
+    .hero h1 {
+      font-size: clamp(24px, 3.5vw, 38px);
+      color: #ccc;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 span { color: #31bbac; }
+    .hero p {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #bbb;
+      letter-spacing: 0.04em;
+    }
+
+    /* ---- toolbar ---- */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 3px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, color 0.2s, opacity 0.2s;
+    }
+    .btn-primary { background: #31bbac; color: #fff; }
+    .btn-primary:hover { background: #28a89a; }
+    .btn-ghost {
+      background: transparent;
+      color: #bbb;
+      border: 1px solid #e0e0e0;
+    }
+    .btn-ghost:hover { color: #31bbac; border-color: #31bbac; }
+
+    .toolbar-sep {
+      width: 1px;
+      height: 24px;
+      background: #eee;
+    }
+
+    .word-count {
+      font-size: 12px;
+      color: #ccc;
+      letter-spacing: 0.06em;
+      margin-left: auto;
+    }
+
+    /* ---- editor grid ---- */
+    .editor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 0;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .panel-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #bbb;
+    }
+
+    textarea {
+      flex: 1;
+      min-height: 480px;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      padding: 16px;
+      font-size: 13px;
+      font-family: 'Courier New', Courier, monospace;
+      line-height: 1.65;
+      resize: none;
+      outline: none;
+      color: #444;
+      background: #fafafa;
+      transition: border-color 0.2s;
+    }
+    textarea:focus { border-color: #31bbac; background: #fff; }
+
+    /* ---- preview ---- */
+    .preview-wrap {
+      flex: 1;
+      min-height: 480px;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      overflow: auto;
+      background: #fff;
+    }
+
+    .preview {
+      padding: 24px 28px;
+      font-size: 14px;
+      line-height: 1.75;
+      color: #333;
+    }
+
+    /* Markdown rendered styles */
+    .preview h1, .preview h2, .preview h3,
+    .preview h4, .preview h5, .preview h6 {
+      color: #222;
+      margin: 1.4em 0 0.5em;
+      line-height: 1.3;
+      font-family: 'LatoBold', Verdana, sans-serif;
+    }
+    .preview h1 { font-size: 1.8em; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.25em; }
+    .preview h2 { font-size: 1.4em; border-bottom: 1px solid #f0f0f0; padding-bottom: 0.2em; }
+    .preview h3 { font-size: 1.15em; }
+    .preview h4 { font-size: 1em; color: #555; }
+
+    .preview p { margin: 0.75em 0; }
+
+    .preview a { color: #31bbac; text-decoration: none; }
+    .preview a:hover { text-decoration: underline; }
+
+    .preview strong { color: #222; font-family: 'LatoBold', Verdana, sans-serif; }
+    .preview em { font-style: italic; }
+
+    .preview ul, .preview ol {
+      margin: 0.75em 0;
+      padding-left: 1.6em;
+    }
+    .preview li { margin: 0.3em 0; }
+
+    .preview blockquote {
+      border-left: 3px solid #31bbac;
+      margin: 1em 0;
+      padding: 0.5em 1em;
+      background: #f9fefe;
+      color: #666;
+      border-radius: 0 3px 3px 0;
+    }
+    .preview blockquote p { margin: 0; }
+
+    .preview code {
+      background: #f4f4f4;
+      color: #c7254e;
+      padding: 0.15em 0.4em;
+      border-radius: 3px;
+      font-size: 0.88em;
+      font-family: 'Courier New', monospace;
+    }
+
+    .preview pre {
+      margin: 1em 0;
+      border-radius: 4px;
+      overflow: auto;
+    }
+    .preview pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      font-size: 0.85em;
+    }
+
+    .preview table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+      font-size: 0.9em;
+    }
+    .preview th {
+      background: #f8f8f8;
+      border: 1px solid #e0e0e0;
+      padding: 8px 12px;
+      text-align: left;
+      font-family: 'LatoBold', Verdana, sans-serif;
+      color: #444;
+    }
+    .preview td {
+      border: 1px solid #e8e8e8;
+      padding: 7px 12px;
+    }
+    .preview tr:nth-child(even) td { background: #fafafa; }
+
+    .preview hr {
+      border: none;
+      border-top: 2px solid #f0f0f0;
+      margin: 1.5em 0;
+    }
+
+    .preview img {
+      max-width: 100%;
+      border-radius: 4px;
+    }
+
+    .preview-empty {
+      color: #ccc;
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    /* ---- toast ---- */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #31bbac;
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      padding: 10px 22px;
+      border-radius: 3px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 768px) {
+      .editor-grid { grid-template-columns: 1fr; }
+      .container { padding: 20px 16px 32px; }
+      .header { padding: 14px 16px; }
+      textarea, .preview-wrap { min-height: 320px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a class="header-back" href="./index.html">
+      <i class="fa fa-chevron-left"></i> Tools
+    </a>
+    <span class="header-title">Markdown Viewer</span>
+  </header>
+
+  <div class="container">
+    <div class="hero">
+      <h1>Markdown <span>Viewer</span></h1>
+      <p>Write or paste Markdown on the left — live preview renders on the right.</p>
+    </div>
+
+    <div class="toolbar">
+      <label class="btn btn-ghost" style="cursor:pointer">
+        <i class="fa fa-upload"></i> Open .md
+        <input type="file" id="fileInput" accept=".md,.markdown,text/markdown,text/plain" style="display:none">
+      </label>
+      <button class="btn btn-ghost" id="pasteBtn"><i class="fa fa-clipboard"></i> Paste</button>
+      <button class="btn btn-ghost" id="clearBtn"><i class="fa fa-times"></i> Clear</button>
+      <div class="toolbar-sep"></div>
+      <button class="btn btn-ghost" id="saveMdBtn"><i class="fa fa-download"></i> Save .md</button>
+      <button class="btn btn-ghost" id="copyMdBtn"><i class="fa fa-code"></i> Copy Markdown</button>
+      <button class="btn btn-primary" id="copyHtmlBtn"><i class="fa fa-copy"></i> Copy HTML</button>
+      <span class="word-count" id="wordCount"></span>
+    </div>
+
+    <div class="editor-grid">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-label">Markdown</span>
+        </div>
+        <textarea id="input" spellcheck="false" placeholder="# Hello World
+
+Start typing or paste your Markdown here…
+
+## Features
+- **Bold**, *italic*, `code`
+- Tables, blockquotes, code blocks
+- Live syntax highlighting
+
+> Tip: preview updates as you type.
+
+```js
+const greet = name => \`Hello, \${name}!\`;
+```"></textarea>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-label">Preview</span>
+        </div>
+        <div class="preview-wrap">
+          <div class="preview" id="preview">
+            <p class="preview-empty">Preview will appear here…</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <script>
+    const inputEl   = document.getElementById('input');
+    const previewEl = document.getElementById('preview');
+    const wordCount = document.getElementById('wordCount');
+    const toast     = document.getElementById('toast');
+    const fileInput = document.getElementById('fileInput');
+    let   currentFileName = 'document.md';
+
+    // Configure marked
+    marked.setOptions({
+      breaks: true,
+      gfm: true
+    });
+
+    marked.use({
+      renderer: {
+        code(code, lang) {
+          const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+          const highlighted = hljs.highlight(code, { language }).value;
+          return '<pre><code class="hljs language-' + language + '">' + highlighted + '</code></pre>';
+        }
+      }
+    });
+
+    function render() {
+      const md = inputEl.value;
+      if (!md.trim()) {
+        previewEl.innerHTML = '<p class="preview-empty">Preview will appear here…</p>';
+        wordCount.textContent = '';
+        return;
+      }
+      previewEl.innerHTML = marked.parse(md);
+      const words = md.trim().split(/\s+/).length;
+      const chars = md.length;
+      wordCount.textContent = words + ' words · ' + chars + ' chars';
+    }
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    // Live render on input
+    inputEl.addEventListener('input', render);
+
+    // Open .md file
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+      currentFileName = file.name;
+      const reader = new FileReader();
+      reader.onload = e => { inputEl.value = e.target.result; render(); };
+      reader.readAsText(file);
+      fileInput.value = '';
+    });
+
+    // Save .md file
+    document.getElementById('saveMdBtn').addEventListener('click', () => {
+      if (!inputEl.value.trim()) return;
+      const blob = new Blob([inputEl.value], { type: 'text/markdown' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url; a.download = currentFileName; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      inputEl.value = '';
+      currentFileName = 'document.md';
+      render();
+    });
+
+    document.getElementById('pasteBtn').addEventListener('click', async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        inputEl.value = text;
+        render();
+      } catch (_) {
+        inputEl.focus();
+        showToast('Press Ctrl+V to paste');
+      }
+    });
+
+    document.getElementById('copyMdBtn').addEventListener('click', () => {
+      if (!inputEl.value.trim()) return;
+      navigator.clipboard.writeText(inputEl.value).then(() => showToast('Markdown copied!'));
+    });
+
+    document.getElementById('copyHtmlBtn').addEventListener('click', () => {
+      if (!inputEl.value.trim()) return;
+      navigator.clipboard.writeText(previewEl.innerHTML).then(() => showToast('HTML copied!'));
+    });
+
+    // Render default placeholder on load
+    render();
+  </script>
+</body>
+</html>
