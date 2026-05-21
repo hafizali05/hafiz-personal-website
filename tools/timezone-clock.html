@@ -578,19 +578,18 @@ function startTicker() {
   ticker = setInterval(renderClocks, 1000);
 }
 
-// Scroll to shift time
-let scrollThrottle = null;
+// Scroll to shift time — accumulate delta so 1 scroll notch = exactly 1 minute
+let scrollAccum = 0;
+let scrollFlush = null;
 window.addEventListener('wheel', (e) => {
   e.preventDefault();
-  if (scrollThrottle) return;
-  scrollThrottle = setTimeout(() => { scrollThrottle = null; }, 80);
-
-  const step = 60 * 1000; // 1 minute per tick
-  if (e.deltaY > 0) {
-    offsetMs -= step;
-  } else {
-    offsetMs += step;
-  }
+  scrollAccum += e.deltaY;
+  const threshold = 50;
+  const step = 60 * 1000;
+  while (scrollAccum >= threshold)  { offsetMs -= step; scrollAccum -= threshold; }
+  while (scrollAccum <= -threshold) { offsetMs += step; scrollAccum += threshold; }
+  clearTimeout(scrollFlush);
+  scrollFlush = setTimeout(() => { scrollAccum = 0; }, 200);
   renderClocks();
 }, { passive: false });
 
