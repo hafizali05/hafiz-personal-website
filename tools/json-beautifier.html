@@ -233,6 +233,59 @@
     }
     .indent-select:focus { border-color: #31bbac; }
 
+    /* ---- convert bar ---- */
+    .convert-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .convert-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #ccc;
+      margin-right: 2px;
+    }
+
+    /* ---- download dropdown ---- */
+    .dropdown { position: relative; display: inline-block; }
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+      min-width: 190px;
+      padding: 6px;
+      z-index: 50;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .dropdown-menu.open { display: flex; }
+    .dropdown-menu button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 9px 12px;
+      border-radius: 3px;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: #666;
+      text-align: left;
+      transition: background 0.15s, color 0.15s;
+    }
+    .dropdown-menu button:hover { background: #f4fbfa; color: #31bbac; }
+    .dropdown-menu button i { width: 16px; text-align: center; color: #31bbac; }
+
     /* ---- status ---- */
     .status {
       font-size: 12px;
@@ -296,6 +349,20 @@
         <i class="fa fa-times"></i> Clear
       </button>
       <span class="status" id="status"></span>
+    </div>
+
+    <div class="convert-bar">
+      <span class="convert-label">Convert</span>
+      <button class="btn btn-ghost" id="toXmlBtn"><i class="fa fa-code"></i> To XML</button>
+      <button class="btn btn-ghost" id="toCsvBtn"><i class="fa fa-table"></i> To CSV</button>
+      <div class="dropdown">
+        <button class="btn btn-primary" id="downloadBtn"><i class="fa fa-download"></i> Download <i class="fa fa-caret-down" style="margin-left:2px"></i></button>
+        <div class="dropdown-menu" id="downloadMenu">
+          <button data-fmt="xml"><i class="fa fa-code"></i> XML (.xml)</button>
+          <button data-fmt="csv"><i class="fa fa-table"></i> CSV (.csv)</button>
+          <button data-fmt="xlsx"><i class="fa fa-file-excel-o"></i> Excel (.xlsx)</button>
+        </div>
+      </div>
     </div>
 
     <div class="editor-grid">
@@ -441,6 +508,237 @@
     // auto-format on Ctrl+Enter / Cmd+Enter
     inputEl.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); format(); }
+    });
+
+    /* ===================================================================
+       Conversions: JSON → XML / CSV / Excel
+       =================================================================== */
+
+    // Parse the current input; on failure mirror format()'s error handling.
+    function parseInputOrFail() {
+      const raw = inputEl.value.trim();
+      if (!raw) { setStatus('Nothing to convert', 'error'); showToast('Invalid JSON'); return undefined; }
+      try {
+        return JSON.parse(raw);
+      } catch (e) {
+        inputEl.classList.add('error');
+        setStatus(e.message, 'error');
+        showToast('Invalid JSON');
+        return undefined;
+      }
+    }
+
+    // ---- JSON → XML ----
+    function xmlEscape(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+    }
+
+    // Make a valid XML tag name from an arbitrary key.
+    function sanitizeTag(key) {
+      let tag = String(key).replace(/[^a-zA-Z0-9_.\-]/g, '_');
+      if (!/^[a-zA-Z_]/.test(tag)) tag = '_' + tag;
+      return tag || '_';
+    }
+
+    function jsonToXml(data) {
+      const pad = (n) => '  '.repeat(n);
+
+      // Render the contents of a value under a given tag, returning the
+      // full <tag>…</tag> block (possibly repeated for arrays).
+      function renderNode(tag, value, depth) {
+        if (value === null || value === undefined) {
+          return pad(depth) + '<' + tag + ' nil="true"/>\n';
+        }
+        if (Array.isArray(value)) {
+          // Repeat the tag for each array item; empty array → self-closing.
+          if (value.length === 0) return pad(depth) + '<' + tag + '/>\n';
+          return value.map((item) => renderNode(tag, item, depth)).join('');
+        }
+        if (typeof value === 'object') {
+          const keys = Object.keys(value);
+          if (keys.length === 0) return pad(depth) + '<' + tag + '/>\n';
+          let inner = '';
+          for (const k of keys) {
+            inner += renderNode(sanitizeTag(k), value[k], depth + 1);
+          }
+          return pad(depth) + '<' + tag + '>\n' + inner + pad(depth) + '</' + tag + '>\n';
+        }
+        // primitive: string, number, boolean
+        return pad(depth) + '<' + tag + '>' + xmlEscape(value) + '</' + tag + '>\n';
+      }
+
+      const body = renderNode('root', data, 0);
+      return '<?xml version="1.0" encoding="UTF-8"?>\n' + body.replace(/\n$/, '');
+    }
+
+    // ---- Flatten (shared by CSV + Excel) ----
+    // Flattens nested objects/arrays into dot-notation keys.
+    function flattenObject(obj, prefix, out) {
+      out = out || {};
+      prefix = prefix || '';
+      if (obj === null || typeof obj !== 'object') {
+        out[prefix || 'value'] = obj;
+        return out;
+      }
+      if (Array.isArray(obj)) {
+        if (obj.length === 0) { out[prefix] = ''; return out; }
+        obj.forEach((v, i) => {
+          const key = prefix ? prefix + '.' + i : String(i);
+          flattenObject(v, key, out);
+        });
+        return out;
+      }
+      const keys = Object.keys(obj);
+      if (keys.length === 0) { if (prefix) out[prefix] = ''; return out; }
+      for (const k of keys) {
+        const key = prefix ? prefix + '.' + k : k;
+        flattenObject(obj[k], key, out);
+      }
+      return out;
+    }
+
+    // Build a table { headers: [...], rows: [[...], ...] } from parsed JSON.
+    function jsonToTable(data) {
+      let records;
+      if (Array.isArray(data)) {
+        records = data.map((item) =>
+          (item !== null && typeof item === 'object') ? flattenObject(item) : { value: item }
+        );
+      } else if (data !== null && typeof data === 'object') {
+        records = [flattenObject(data)];
+      } else {
+        // primitive
+        records = [{ value: data }];
+      }
+
+      // Union of keys, preserving first-seen order.
+      const headers = [];
+      const seen = Object.create(null);
+      records.forEach((rec) => {
+        Object.keys(rec).forEach((k) => {
+          if (!seen[k]) { seen[k] = true; headers.push(k); }
+        });
+      });
+      if (headers.length === 0) headers.push('value');
+
+      const rows = records.map((rec) =>
+        headers.map((h) => {
+          const v = rec[h];
+          return (v === undefined || v === null) ? '' : v;
+        })
+      );
+      return { headers, rows };
+    }
+
+    // ---- JSON → CSV (RFC 4180) ----
+    function csvCell(value) {
+      const s = String(value);
+      if (/[",\n\r]/.test(s)) {
+        return '"' + s.replace(/"/g, '""') + '"';
+      }
+      return s;
+    }
+
+    function jsonToCsv(data) {
+      const { headers, rows } = jsonToTable(data);
+      const lines = [headers.map(csvCell).join(',')];
+      rows.forEach((row) => lines.push(row.map(csvCell).join(',')));
+      return lines.join('\r\n');
+    }
+
+    // ---- View helpers ----
+    function showText(text, statusMsg) {
+      lastFormatted = text;
+      outputEl.textContent = text;
+      outputEl.classList.remove('empty');
+      inputEl.classList.remove('error');
+      setStatus(statusMsg, 'ok');
+    }
+
+    function downloadBlob(blob, name) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = name; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    // ---- Excel (lazy-loaded SheetJS) ----
+    const LIB = {
+      xlsx: 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
+    };
+    const scriptCache = {};
+    function loadScript(src) {
+      if (scriptCache[src]) return scriptCache[src];
+      scriptCache[src] = new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = () => reject(new Error('Failed to load ' + src));
+        document.head.appendChild(s);
+      });
+      return scriptCache[src];
+    }
+
+    async function downloadXlsx(data) {
+      await loadScript(LIB.xlsx);
+      const { headers, rows } = jsonToTable(data);
+      const aoa = [headers].concat(rows);
+      const ws = XLSX.utils.aoa_to_sheet(aoa);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      XLSX.writeFile(wb, 'data.xlsx');
+    }
+
+    // ---- Wiring ----
+    document.getElementById('toXmlBtn').addEventListener('click', () => {
+      const data = parseInputOrFail();
+      if (data === undefined) return;
+      showText(jsonToXml(data), '✓ Converted to XML');
+    });
+
+    document.getElementById('toCsvBtn').addEventListener('click', () => {
+      const data = parseInputOrFail();
+      if (data === undefined) return;
+      showText(jsonToCsv(data), '✓ Converted to CSV');
+    });
+
+    const downloadBtn  = document.getElementById('downloadBtn');
+    const downloadMenu = document.getElementById('downloadMenu');
+    downloadBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      downloadMenu.classList.toggle('open');
+    });
+    document.addEventListener('click', () => downloadMenu.classList.remove('open'));
+
+    downloadMenu.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button[data-fmt]');
+      if (!btn) return;
+      downloadMenu.classList.remove('open');
+      const data = parseInputOrFail();
+      if (data === undefined) return;
+      const fmt = btn.dataset.fmt;
+      try {
+        if (fmt === 'xml') {
+          downloadBlob(new Blob([jsonToXml(data)], { type: 'application/xml' }), 'data.xml');
+          setStatus('✓ Downloaded data.xml', 'ok');
+        } else if (fmt === 'csv') {
+          downloadBlob(new Blob([jsonToCsv(data)], { type: 'text/csv' }), 'data.csv');
+          setStatus('✓ Downloaded data.csv', 'ok');
+        } else if (fmt === 'xlsx') {
+          showToast('Preparing Excel…');
+          await downloadXlsx(data);
+          setStatus('✓ Downloaded data.xlsx', 'ok');
+        }
+      } catch (err) {
+        console.error(err);
+        setStatus('Export failed — please try again', 'error');
+        showToast('Export failed');
+      }
     });
 
     // live validation indicator while typing (debounced)
