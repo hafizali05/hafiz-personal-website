@@ -291,7 +291,7 @@ font-size: 21px;
       </div>
     </div>
   </div>
-  <section id="work" class="section work">
+  <section id="work" class="section work" style="display:none">
     <ul class="projects"></ul>
     <div class="nav-link" data-link="contact" data-previous="work">
       <div class="link-wrapper"><span class="txt lbldup">Contact</span> <span class="arrow-down-sm"></span></div>
@@ -422,7 +422,6 @@ font-size: 21px;
   };
 
   $(document).ready(function () {
-    $('#work').hide();
     $('.work-toggle').on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
