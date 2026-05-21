@@ -395,8 +395,9 @@ const greet = name => \`Hello, \${name}!\`;
     const wordCount = document.getElementById('wordCount');
     const toast     = document.getElementById('toast');
     const fileInput = document.getElementById('fileInput');
-    let   currentFileName = 'document.md';
-    let   syncSource = null; // 'textarea' | 'preview' — prevents circular updates
+    let currentFileName  = 'document.md';
+    let previewHasFocus  = false;
+    let previewDebounce;
 
     // ---- Marked (Markdown → HTML) ----
     marked.setOptions({ breaks: true, gfm: true });
@@ -411,12 +412,7 @@ const greet = name => \`Hello, \${name}!\`;
     });
 
     // ---- Turndown (HTML → Markdown) ----
-    const turndown = new TurndownService({
-      headingStyle: 'atx',
-      codeBlockStyle: 'fenced',
-      bulletListMarker: '-'
-    });
-    // Preserve code blocks with language
+    const turndown = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced', bulletListMarker: '-' });
     turndown.addRule('fencedCode', {
       filter: node => node.nodeName === 'PRE' && node.querySelector('code'),
       replacement(_, node) {
@@ -431,8 +427,9 @@ const greet = name => \`Hello, \${name}!\`;
       wordCount.textContent = md.trim().split(/\s+/).length + ' words · ' + md.length + ' chars';
     }
 
-    // Textarea → Preview
+    // Textarea → Preview (never call while user is editing preview)
     function renderFromTextarea() {
+      if (previewHasFocus) return;
       const md = inputEl.value;
       if (!md.trim()) {
         previewEl.innerHTML = '<p class="preview-empty">Preview will appear here…</p>';
@@ -443,35 +440,38 @@ const greet = name => \`Hello, \${name}!\`;
       updateWordCount(md);
     }
 
-    // Preview → Textarea
-    function syncFromPreview() {
-      const html = previewEl.innerHTML;
-      const md   = turndown.turndown(html);
-      inputEl.value = md;
-      updateWordCount(md);
-    }
-
     function showToast(msg) {
       toast.textContent = msg;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    // Textarea edits → re-render preview (only when textarea is the active source)
-    inputEl.addEventListener('input', () => {
-      if (syncSource === 'preview') return;
-      syncSource = 'textarea';
-      renderFromTextarea();
-      syncSource = null;
+    // Track preview focus so we never clobber the user's edits
+    previewEl.addEventListener('focus', () => { previewHasFocus = true; });
+    previewEl.addEventListener('blur',  () => {
+      previewHasFocus = false;
+      // Sync preview → textarea when the user leaves
+      try {
+        const md = turndown.turndown(previewEl.innerHTML);
+        inputEl.value = md;
+        updateWordCount(md);
+      } catch (_) {}
     });
 
-    // Preview edits → sync back to markdown textarea
+    // Live debounced sync: preview → textarea while typing
     previewEl.addEventListener('input', () => {
-      if (syncSource === 'textarea') return;
-      syncSource = 'preview';
-      syncFromPreview();
-      syncSource = null;
+      clearTimeout(previewDebounce);
+      previewDebounce = setTimeout(() => {
+        try {
+          const md = turndown.turndown(previewEl.innerHTML);
+          inputEl.value = md;
+          updateWordCount(md);
+        } catch (_) {}
+      }, 400);
     });
+
+    // Textarea → re-render preview on every keystroke
+    inputEl.addEventListener('input', renderFromTextarea);
 
     // Open .md file
     fileInput.addEventListener('change', () => {
