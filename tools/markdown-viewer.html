@@ -128,6 +128,43 @@
       border: 1px solid #e0e0e0;
     }
     .btn-ghost:hover { color: #31bbac; border-color: #31bbac; }
+    .btn:disabled { opacity: 0.5; cursor: default; }
+
+    /* ---- download dropdown ---- */
+    .dropdown { position: relative; display: inline-block; }
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+      min-width: 210px;
+      padding: 6px;
+      z-index: 50;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .dropdown-menu.open { display: flex; }
+    .dropdown-menu button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 9px 12px;
+      border-radius: 3px;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: #666;
+      text-align: left;
+      transition: background 0.15s, color 0.15s;
+    }
+    .dropdown-menu button:hover { background: #f4fbfa; color: #31bbac; }
+    .dropdown-menu button i { width: 16px; text-align: center; color: #31bbac; }
 
     .toolbar-sep {
       width: 1px;
@@ -367,7 +404,16 @@
       <div class="toolbar-sep"></div>
       <button class="btn btn-ghost" id="saveMdBtn"><i class="fa fa-download"></i> Save .md</button>
       <button class="btn btn-ghost" id="copyMdBtn"><i class="fa fa-code"></i> Copy Markdown</button>
-      <button class="btn btn-primary" id="copyHtmlBtn"><i class="fa fa-copy"></i> Copy HTML</button>
+      <button class="btn btn-ghost" id="copyHtmlBtn"><i class="fa fa-copy"></i> Copy HTML</button>
+      <div class="dropdown">
+        <button class="btn btn-primary" id="downloadBtn"><i class="fa fa-download"></i> Download <i class="fa fa-caret-down" style="margin-left:2px"></i></button>
+        <div class="dropdown-menu" id="downloadMenu">
+          <button data-fmt="pdf"><i class="fa fa-file-pdf-o"></i> PDF document</button>
+          <button data-fmt="png"><i class="fa fa-file-image-o"></i> PNG image</button>
+          <button data-fmt="word"><i class="fa fa-file-word-o"></i> Word (.doc)</button>
+          <button data-fmt="pptx"><i class="fa fa-file-powerpoint-o"></i> PowerPoint (.pptx)</button>
+        </div>
+      </div>
       <span class="word-count" id="wordCount"></span>
     </div>
 
@@ -543,6 +589,179 @@ const greet = name => \`Hello, \${name}!\`;
       const html = previewEl.innerHTML;
       if (!html.trim()) return;
       navigator.clipboard.writeText(html).then(() => showToast('HTML copied!'));
+    });
+
+    // ---- Downloads (PDF / PNG / Word / PowerPoint) ----
+    const LIB = {
+      html2canvas: 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',
+      html2pdf:    'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js',
+      pptxgenjs:   'https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.bundle.js',
+    };
+    const scriptCache = {};
+    function loadScript(src) {
+      if (scriptCache[src]) return scriptCache[src];
+      scriptCache[src] = new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = () => reject(new Error('Failed to load ' + src));
+        document.head.appendChild(s);
+      });
+      return scriptCache[src];
+    }
+
+    function baseName() {
+      return (currentFileName || 'document').replace(/\.(md|markdown|txt)$/i, '') || 'document';
+    }
+    function downloadBlob(blob, name) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = name; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+    function hasContent() {
+      return previewEl.textContent.trim() && !previewEl.querySelector('.preview-empty');
+    }
+    // Off-screen print-friendly clone of the rendered preview
+    function buildExportNode() {
+      const node = document.createElement('div');
+      node.className = 'preview';
+      node.style.cssText = 'width:780px;padding:40px;background:#fff;color:#333;' +
+        'font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.7;' +
+        'position:absolute;left:-9999px;top:0;';
+      node.innerHTML = previewEl.innerHTML;
+      return node;
+    }
+
+    async function exportPDF() {
+      await loadScript(LIB.html2pdf);
+      const node = buildExportNode();
+      document.body.appendChild(node);
+      try {
+        await html2pdf().set({
+          margin: [12, 12, 12, 12],
+          filename: baseName() + '.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, backgroundColor: '#ffffff', useCORS: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          pagebreak: { mode: ['css', 'legacy'] },
+        }).from(node).save();
+      } finally {
+        document.body.removeChild(node);
+      }
+    }
+
+    async function exportPNG() {
+      await loadScript(LIB.html2canvas);
+      const node = buildExportNode();
+      document.body.appendChild(node);
+      try {
+        const canvas = await html2canvas(node, { scale: 2, backgroundColor: '#ffffff', useCORS: true });
+        await new Promise(res => canvas.toBlob(blob => { downloadBlob(blob, baseName() + '.png'); res(); }, 'image/png'));
+      } finally {
+        document.body.removeChild(node);
+      }
+    }
+
+    function exportWord() {
+      const styles = 'body{font-family:Calibri,Arial,sans-serif;color:#000;font-size:11pt;}' +
+        'h1,h2,h3,h4{font-family:Calibri,Arial,sans-serif;color:#1a1a1a;}' +
+        'table{border-collapse:collapse;}td,th{border:1px solid #999;padding:5px 9px;}' +
+        'th{background:#f0f0f0;}code,pre{font-family:Consolas,monospace;font-size:10pt;}' +
+        'pre{background:#f5f5f5;padding:8px;}blockquote{border-left:3px solid #ccc;padding-left:12px;color:#555;}';
+      const html = "<!DOCTYPE html><html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+        "xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>" +
+        "<head><meta charset='utf-8'><style>" + styles + "</style></head><body>" +
+        previewEl.innerHTML + "</body></html>";
+      const blob = new Blob(['﻿', html], { type: 'application/msword' });
+      downloadBlob(blob, baseName() + '.doc');
+    }
+
+    // Split the rendered preview into slides at each H1/H2 (and HR breaks)
+    function parseSlides() {
+      const slides = [];
+      let cur = null;
+      const push = () => { if (cur && (cur.title || cur.body.length)) slides.push(cur); };
+      const ensure = () => { if (!cur) cur = { title: '', body: [] }; };
+      Array.from(previewEl.children).forEach(el => {
+        const tag = el.tagName;
+        if (tag === 'H1' || tag === 'H2') {
+          push();
+          cur = { title: el.textContent.trim(), body: [] };
+        } else if (tag === 'H3' || tag === 'H4') {
+          ensure();
+          cur.body.push({ text: el.textContent.trim(), options: { bold: true, fontSize: 18, breakLine: true, paraSpaceBefore: 8 } });
+        } else if (tag === 'UL' || tag === 'OL') {
+          ensure();
+          el.querySelectorAll(':scope > li').forEach(li => {
+            cur.body.push({ text: li.textContent.trim(), options: { bullet: true, breakLine: true } });
+          });
+        } else if (tag === 'BLOCKQUOTE') {
+          ensure();
+          cur.body.push({ text: el.textContent.trim(), options: { italic: true, color: '666666', breakLine: true } });
+        } else if (tag === 'PRE') {
+          ensure();
+          cur.body.push({ text: el.textContent.replace(/\n+$/, ''), options: { fontFace: 'Courier New', fontSize: 12, color: '444444', breakLine: true } });
+        } else if (tag === 'TABLE') {
+          ensure();
+          el.querySelectorAll('tr').forEach(tr => {
+            const row = Array.from(tr.children).map(c => c.textContent.trim()).join('   |   ');
+            cur.body.push({ text: row, options: { fontSize: 13, breakLine: true } });
+          });
+        } else if (tag === 'HR') {
+          push(); cur = null;
+        } else {
+          const txt = el.textContent.trim();
+          if (txt) { ensure(); cur.body.push({ text: txt, options: { breakLine: true } }); }
+        }
+      });
+      push();
+      if (!slides.length) {
+        slides.push({ title: baseName(), body: [{ text: previewEl.textContent.trim(), options: { breakLine: true } }] });
+      }
+      return slides;
+    }
+
+    async function exportPPTX() {
+      await loadScript(LIB.pptxgenjs);
+      const pptx = new PptxGenJS();
+      pptx.layout = 'LAYOUT_WIDE';
+      parseSlides().forEach(s => {
+        const slide = pptx.addSlide();
+        slide.background = { color: 'FFFFFF' };
+        const bodyY = s.title ? 1.5 : 0.5;
+        if (s.title) {
+          slide.addText(s.title, { x: 0.5, y: 0.35, w: 12.3, h: 1, fontSize: 28, bold: true, color: '222222', fontFace: 'Arial' });
+        }
+        if (s.body.length) {
+          slide.addText(s.body, { x: 0.5, y: bodyY, w: 12.3, h: 7.5 - bodyY - 0.4, fontSize: 16, color: '333333', fontFace: 'Arial', valign: 'top' });
+        }
+      });
+      await pptx.writeFile({ fileName: baseName() + '.pptx' });
+    }
+
+    const downloadBtn  = document.getElementById('downloadBtn');
+    const downloadMenu = document.getElementById('downloadMenu');
+    downloadBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      downloadMenu.classList.toggle('open');
+    });
+    document.addEventListener('click', () => downloadMenu.classList.remove('open'));
+
+    const EXPORTERS = { pdf: exportPDF, png: exportPNG, word: exportWord, pptx: exportPPTX };
+    downloadMenu.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button[data-fmt]');
+      if (!btn) return;
+      downloadMenu.classList.remove('open');
+      if (!hasContent()) { showToast('Nothing to export yet'); return; }
+      const fmt = btn.dataset.fmt;
+      showToast('Preparing ' + fmt.toUpperCase() + '…');
+      try {
+        await EXPORTERS[fmt]();
+      } catch (err) {
+        console.error(err);
+        showToast('Export failed — please try again');
+      }
     });
 
     // Initial render
