@@ -278,6 +278,21 @@
       font-size: 13px;
     }
 
+    .preview-wrap:focus-within {
+      border-color: #31bbac;
+    }
+
+    .preview[contenteditable]:focus {
+      outline: none;
+    }
+
+    .preview-edit-hint {
+      font-size: 11px;
+      color: #ccc;
+      letter-spacing: 0.06em;
+      font-style: italic;
+    }
+
     /* ---- toast ---- */
     .toast {
       position: fixed;
@@ -357,9 +372,10 @@ const greet = name => \`Hello, \${name}!\`;
       <div class="panel">
         <div class="panel-header">
           <span class="panel-label">Preview</span>
+          <span class="preview-edit-hint">click to edit</span>
         </div>
         <div class="preview-wrap">
-          <div class="preview" id="preview">
+          <div class="preview" id="preview" contenteditable="true" spellcheck="false">
             <p class="preview-empty">Preview will appear here…</p>
           </div>
         </div>
@@ -371,6 +387,7 @@ const greet = name => \`Hello, \${name}!\`;
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turndown/7.1.2/turndown.min.js"></script>
 
   <script>
     const inputEl   = document.getElementById('input');
@@ -379,13 +396,10 @@ const greet = name => \`Hello, \${name}!\`;
     const toast     = document.getElementById('toast');
     const fileInput = document.getElementById('fileInput');
     let   currentFileName = 'document.md';
+    let   syncSource = null; // 'textarea' | 'preview' — prevents circular updates
 
-    // Configure marked
-    marked.setOptions({
-      breaks: true,
-      gfm: true
-    });
-
+    // ---- Marked (Markdown → HTML) ----
+    marked.setOptions({ breaks: true, gfm: true });
     marked.use({
       renderer: {
         code(code, lang) {
@@ -396,17 +410,45 @@ const greet = name => \`Hello, \${name}!\`;
       }
     });
 
-    function render() {
+    // ---- Turndown (HTML → Markdown) ----
+    const turndown = new TurndownService({
+      headingStyle: 'atx',
+      codeBlockStyle: 'fenced',
+      bulletListMarker: '-'
+    });
+    // Preserve code blocks with language
+    turndown.addRule('fencedCode', {
+      filter: node => node.nodeName === 'PRE' && node.querySelector('code'),
+      replacement(_, node) {
+        const code = node.querySelector('code');
+        const lang = (code.className.match(/language-(\S+)/) || [])[1] || '';
+        return '\n\n```' + lang + '\n' + code.textContent.trim() + '\n```\n\n';
+      }
+    });
+
+    function updateWordCount(md) {
+      if (!md.trim()) { wordCount.textContent = ''; return; }
+      wordCount.textContent = md.trim().split(/\s+/).length + ' words · ' + md.length + ' chars';
+    }
+
+    // Textarea → Preview
+    function renderFromTextarea() {
       const md = inputEl.value;
       if (!md.trim()) {
         previewEl.innerHTML = '<p class="preview-empty">Preview will appear here…</p>';
-        wordCount.textContent = '';
+        updateWordCount('');
         return;
       }
       previewEl.innerHTML = marked.parse(md);
-      const words = md.trim().split(/\s+/).length;
-      const chars = md.length;
-      wordCount.textContent = words + ' words · ' + chars + ' chars';
+      updateWordCount(md);
+    }
+
+    // Preview → Textarea
+    function syncFromPreview() {
+      const html = previewEl.innerHTML;
+      const md   = turndown.turndown(html);
+      inputEl.value = md;
+      updateWordCount(md);
     }
 
     function showToast(msg) {
@@ -415,8 +457,21 @@ const greet = name => \`Hello, \${name}!\`;
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    // Live render on input
-    inputEl.addEventListener('input', render);
+    // Textarea edits → re-render preview (only when textarea is the active source)
+    inputEl.addEventListener('input', () => {
+      if (syncSource === 'preview') return;
+      syncSource = 'textarea';
+      renderFromTextarea();
+      syncSource = null;
+    });
+
+    // Preview edits → sync back to markdown textarea
+    previewEl.addEventListener('input', () => {
+      if (syncSource === 'textarea') return;
+      syncSource = 'preview';
+      syncFromPreview();
+      syncSource = null;
+    });
 
     // Open .md file
     fileInput.addEventListener('change', () => {
@@ -424,7 +479,7 @@ const greet = name => \`Hello, \${name}!\`;
       if (!file) return;
       currentFileName = file.name;
       const reader = new FileReader();
-      reader.onload = e => { inputEl.value = e.target.result; render(); };
+      reader.onload = e => { inputEl.value = e.target.result; renderFromTextarea();};
       reader.readAsText(file);
       fileInput.value = '';
     });
@@ -442,14 +497,14 @@ const greet = name => \`Hello, \${name}!\`;
     document.getElementById('clearBtn').addEventListener('click', () => {
       inputEl.value = '';
       currentFileName = 'document.md';
-      render();
+      renderFromTextarea();
     });
 
     document.getElementById('pasteBtn').addEventListener('click', async () => {
       try {
         const text = await navigator.clipboard.readText();
         inputEl.value = text;
-        render();
+        renderFromTextarea();
       } catch (_) {
         inputEl.focus();
         showToast('Press Ctrl+V to paste');
@@ -462,12 +517,13 @@ const greet = name => \`Hello, \${name}!\`;
     });
 
     document.getElementById('copyHtmlBtn').addEventListener('click', () => {
-      if (!inputEl.value.trim()) return;
-      navigator.clipboard.writeText(previewEl.innerHTML).then(() => showToast('HTML copied!'));
+      const html = previewEl.innerHTML;
+      if (!html.trim()) return;
+      navigator.clipboard.writeText(html).then(() => showToast('HTML copied!'));
     });
 
-    // Render default placeholder on load
-    render();
+    // Initial render
+    renderFromTextarea();
   </script>
 </body>
 </html>
