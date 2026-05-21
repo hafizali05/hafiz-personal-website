@@ -457,11 +457,25 @@ const TIMEZONES = [
 ];
 
 // State
-let offsetMs = 0; // offset from real time in ms
-let clocks = [
-  { ...TIMEZONES.find(t => t.city === 'London') },
-  { ...TIMEZONES.find(t => t.city === 'Toronto') },
-];
+let offsetMs = 0;
+const STORAGE_KEY = 'tz-clock-config';
+
+function loadClocks() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch {}
+  return [
+    { ...TIMEZONES.find(t => t.city === 'London') },
+    { ...TIMEZONES.find(t => t.city === 'Toronto') },
+  ];
+}
+
+function saveClocks() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(clocks)); } catch {}
+}
+
+let clocks = loadClocks();
 let ticker = null;
 
 // DOM refs
@@ -553,6 +567,7 @@ function renderClocks() {
     btn.addEventListener('click', () => {
       const idx = parseInt(btn.dataset.index);
       clocks.splice(idx, 1);
+      saveClocks();
       renderClocks();
     });
   });
@@ -625,6 +640,7 @@ function renderTzList(query) {
     `;
     row.addEventListener('click', () => {
       clocks.push({ ...tz });
+      saveClocks();
       renderClocks();
       closeModal();
     });
