@@ -1,74 +1,64 @@
 {
   "work": [
     {
-      "title":"Senior Software Engineer @Bold Science",
-      "slug":"bold-science",
-      "description":"Owner of scientific communication application used by FDA. Leading team of 5, architecting solutions with React, TypeScript, Python, and AWS serverless infrastructure. Focused on performance optimization, testing strategy, and building engineering culture.",
-      "link":"https://www.boldsci.com/",
-      "images":[],
-      "for":"Bold Science",
-      "role":"Senior Software Engineer",
-      "period":"March 2023 - Present"
+      "title": "Lead Software Engineer @UKHSA via Burendo",
+      "slug": "ukhsa-burendo",
+      "description": "Led a cloud-native AWS HPC platform for national genomic surveillance at UKHSA, migrating 140TB of on-premise data to cloud. Achieved 82% cost reduction through Terraform IaC, Kubernetes pipeline optimisation, and large-scale data processing tuning.",
+      "link": "https://www.burendo.com/",
+      "images": [],
+      "for": "UKHSA via Burendo",
+      "role": "Lead Software Engineer",
+      "period": "Jan 2026 – Present"
     },
     {
-      "title":"Lead Software Engineer @Glasswall",
-      "slug":"glasswall",
-      "description":"Led architecture and development of file-based protection solutions using React, Electron, TypeScript, and Java Spring Boot. Developed Glasswall Desktop for US government. Managed offshore team and established coding standards.",
-      "link":"http://www.glasswall.com",
-      "images":[],
-      "for":"Glasswall",
-      "role":"Lead Software Engineer",
-      "period":"Dec 2021 - Dec 2022"
+      "title": "Senior Software Engineer @Bold Science",
+      "slug": "bold-science",
+      "description": "Built a scientific communication platform used by the U.S. FDA, serving 200 concurrent users for clients including AstraZeneca, Novartis, and Pfizer. Architected an agentic AI system for pharmaceutical content generation using RAG pipelines, pgvector, FastAPI, and AWS SageMaker.",
+      "link": "https://www.boldsci.com/",
+      "images": [],
+      "for": "Bold Science",
+      "role": "Senior Software Engineer",
+      "period": "Mar 2023 – Nov 2025"
     },
     {
-      "title":"Senior Software Engineer @Forest Rock Systems",
-      "slug":"forest-rock",
-      "description":"Developed N4EnergyManager for visualizing IoT device data and Alarm Manager handling 7M alarms/year for major retailers (Asda, M&S, John Lewis). Drove frontend architectural decisions and mentored team members.",
-      "link":"https://www.forestrocksystems.com",
-      "images":[],
-      "for":"Forest Rock Systems",
-      "role":"Senior Software Engineer",
-      "period":"Aug 2019 - Dec 2021"
+      "title": "Lead Software Engineer @Glasswall",
+      "slug": "glasswall",
+      "description": "Led architecture of a file ingest orchestration UI and CDR microservices platform processing 4.4M+ files/day for NATO, Five Eyes, and AUKUS customers. Built a React/Electron offline desktop CDR app deployed to 4+ US government agencies, managing an offshore team with 200+ Playwright E2E tests.",
+      "link": "https://www.glasswall.com",
+      "images": [],
+      "for": "Glasswall",
+      "role": "Lead Software Engineer",
+      "period": "Dec 2021 – Dec 2022"
     },
     {
-      "title":"Software Engineer @Deloitte (Keytree)",
-      "slug":"deloitte",
-      "description":"Developed CRM applications for Jaguar Land Rover using React, Redux, and Java Spring Boot. Built London City Airport website with React and NodeJS. Supported multiple clients including TfL, British Gas, and Freshfield.",
-      "link":"https://www2.deloitte.com",
-      "images":[],
-      "for":"Deloitte (Keytree)",
-      "role":"Software Engineer",
-      "period":"Mar 2017 - Aug 2019"
+      "title": "Senior Software Engineer @Forest Rock Systems",
+      "slug": "forest-rock",
+      "description": "Developed N4EnergyManager, an IoT energy analytics platform with real-time D3.js visualisations across buildings, data centres, and manufacturing facilities. Built Alarm Manager, a retail alarm system processing 7 million alarms/year for Asda, M&S, and John Lewis across thousands of locations.",
+      "link": "https://www.forestrocksystems.com",
+      "images": [],
+      "for": "Forest Rock Systems",
+      "role": "Senior Software Engineer",
+      "period": "Aug 2019 – Dec 2021"
     },
     {
-      "title":"Full Stack Developer @Blonk SAAS",
-      "slug":"blonk",
-      "description":"Built recruitment-focused web and React Native mobile app MVP that helped raise EUR 200k. Integrated Stripe payment gateway and created job dashboard for C-level executives.",
-      "link":"http://blonk.co",
-      "images":[],
-      "for":"Blonk",
-      "role":"Full Stack JavaScript Developer",
-      "period":"Aug 2016 - Mar 2017"
+      "title": "Software Engineer @Deloitte (Keytree)",
+      "slug": "deloitte",
+      "description": "Built the Case Service module for Jaguar Land Rover's global CRM platform, serving 2,600+ retail centres across 100+ countries. Developed the EDF Energy React Native mobile app for ~2 million users, with secure authentication and real-time consumption tracking.",
+      "link": "https://www2.deloitte.com",
+      "images": [],
+      "for": "Deloitte (Keytree)",
+      "role": "Software Engineer",
+      "period": "Mar 2017 – Aug 2019"
     },
     {
-      "title":"Full Stack Developer @SuperFastPixels",
-      "slug":"superfastpixels",
-      "description":"E2E development of web app for movie crew marketplace using React, Meteor, NodeJS, and MongoDB.",
-      "link":"http://superfastpixels.io",
-      "images":[],
-      "for":"SuperFastPixels",
-      "role":"Full Stack JavaScript Developer",
-      "period":"Feb 2016 - Aug 2016"
-    },
-    {
-      "title":"Full Stack Developer @Greenroom",
-      "slug":"greenroom",
-      "description":"E2E development of web app for stage artists to find gigs using React, Meteor, NodeJS, and MongoDB.",
-      "link":"http://greenroomnow.com",
-      "images":[],
-      "for":"Greenroom",
-      "role":"Full Stack JavaScript Developer",
-      "period":"Feb 2015 - Dec 2015"
+      "title": "Full Stack JS Developer @Blonk · SuperFastPixels · Greenroom",
+      "slug": "earlier-experience",
+      "description": "Delivered MVP-to-production products at Blonk SAAS, SuperFastPixels, and Greenroom using React, Meteor, Node.js, and MongoDB. Designed a recruitment web app at Blonk that helped the startup raise EUR 200k in investment.",
+      "link": "http://blonk.co",
+      "images": [],
+      "for": "Blonk · SuperFastPixels · Greenroom",
+      "role": "Full Stack JavaScript Developer",
+      "period": "2015 – 2017"
     }
   ]
 }
